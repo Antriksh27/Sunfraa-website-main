@@ -1,0 +1,111 @@
+{
+  "hero": {
+    "badge": "Sovereign Energy Systems",
+    "title": "Solar_",
+    "highlight": "SUPREMACY",
+    "desc": "The definitive transition from grid dependence to infrastructure autonomy. Engineered for industrial resilience and absolute financial control.",
+    "stats": [
+      { "value": "1.2", "unit": "KW/M²", "label": "Irradiance" },
+      { "value": "26.2", "unit": "°N", "label": "Latitude" },
+      { "value": "3.8", "unit": "YRS", "label": "Payback" }
+    ],
+    "cta": {
+      "primary": "Initiate Protocol",
+      "secondary": "The Manifesto"
+    }
+  },
+  "trust": {
+    "label": "Strategic Alliances",
+    "partners": ["MNRE Approved", "ISO 9001:2015", "NISE Partner", "IEC Certified", "GEDA Empanelled"]
+  },
+  "problem": {
+    "label": "The Gridlock",
+    "title": "The Cost of Inaction",
+    "desc": "Systemic energy dependence is eroding your institutional capital. Every year of delay is a calculated loss in enterprise valuation.",
+    "metrics": [
+      { "label": "Grid Dependency", "value": "68%", "target": "0%" },
+      { "label": "Annual Tariff Inflation", "value": "12.4%", "target": "Fixed" }
+    ]
+  },
+  "outcome": {
+    "label": "Energy Sovereignty",
+    "title": "The Pivot",
+    "desc": "From Grid Dependence to Asset Autonomy. Replace a monthly liability with a high-performing infrastructure asset."
+  },
+  "benefits": {
+    "label": "ROI & Resilience",
+    "title": "The Triple ROI",
+    "items": [
+      { "icon": "savings", "title": "80% Bill Reduction", "desc": "Immediate impact on operational expenditure and cash flow velocity." },
+      { "icon": "account_balance", "title": "Fiscal Optimization", "desc": "Leverage accelerated depreciation and major tax shields for enterprise growth." },
+      { "icon": "verified_user", "title": "Tier-1 Reliability", "desc": "25-year structural integrity with Bloomberg NEF rated hardware ecosystem." }
+    ]
+  },
+  "process": {
+    "label": "Process Odyssey",
+    "title": "The Path to Autonomy",
+    "steps": [
+      { "step": "01", "title": "Audit", "desc": "Deep precision energy profiling." },
+      { "step": "02", "title": "Design", "desc": "3D topological asset modeling." },
+      { "step": "03", "title": "Deploy", "desc": "Industrial grade EPC commissioning." },
+      { "step": "04", "title": "Govern", "desc": "Autonomous smart-grid management." }
+    ]
+  },
+  "solutions": {
+    "label": "Engineered for Scale",
+    "title": "Infrastructure Suite",
+    "items": [
+      { "title": "Institutional", "sub": "100 kW – 500 kW", "desc": "For educational & healthcare architectures." },
+      { "title": "Industrial", "sub": "500 kW – 5 MW+", "desc": "Massive scale tactical deployment." },
+      { "title": "Commercial", "sub": "10 kW – 100 kW", "desc": "High-efficiency retail rooftop systems." }
+    ]
+  },
+  "roi": {
+    "label": "ROI Intelligence",
+    "title": "Real-time Impact",
+    "stats": [
+      { "label": "Total Generation", "value": 74250, "unit": "mWh", "desc": "Clean energy across our current operational grid." },
+      { "label": "Asset Valuation", "value": 124, "unit": "Cr", "desc": "Cumulative capital preserved for our clients." }
+    ]
+  },
+  "portfolio": {
+    "label": "Flagship Assets",
+    "title": "The Rajasthan Asset",
+    "main_image": "https://lh3.googleusercontent.com/d/1vQy6pE-r96Y6D1_Fz-O8X5m-VlYQ3E8b",
+    "projects": [
+      { "title": "Surat Textile Hub", "type": "Industrial · 150 kW", "savings": "₹1.2L / mo", "payback": "3.4 Yrs" },
+      { "title": "Rajkot Residence", "type": "Residential · 12 kW", "savings": "₹14K / mo", "payback": "4.5 Yrs" }
+    ]
+  },
+  "testimonials": {
+    "label": "Voices of Trust",
+    "quote": "Sunfraa's precision engineering transformed our energy profile from a liability to a competitive advantage.",
+    "author": { "name": "Rajesh Mehta", "role": "CEO · Mehta Textiles", "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=200&auto=format&fit=crop" }
+  },
+  "edge": {
+    "label": "The Sunfraa Edge",
+    "title": "Sovereign Engineering",
+    "points": [
+      { "title": "Precision Structural", "desc": "Designed for heavy-load industrial wind vectors." },
+      { "title": "Cloud Governance", "desc": "AI monitoring for predictive maintenance." }
+    ]
+  },
+  "authority": {
+    "label": "Authority & Partners",
+    "seals": ["MNRE Approved", "BIS Certified", "GEDA Empanelled"]
+  },
+  "faq": {
+    "label": "Technical Inquiry",
+    "items": [
+      { "q": "What is the payback horizon?", "a": "Typical ROI is achieved within 3.5 to 4.5 years depending on scale." },
+      { "q": "Is the system autonomous?", "a": "Yes, with our smart governance suite, grid management is fully automated." }
+    ]
+  },
+  "cta": {
+    "label": "Solar Flare",
+    "title": "Begin Commissioning",
+    "desc": "Join the elite cohort of energy-independent institutions. Book your precision audit now.",
+    "primary": "Book Audit",
+    "secondary": "View Assets"
+  }
+}
