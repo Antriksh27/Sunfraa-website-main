@@ -1,57 +1,57 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import FadeUp from '@/components/animations/FadeUp';
-import homepageData from '@/content/homepage.json';
 
 export default function FinalCTA() {
-  const { cta } = homepageData;
-
   return (
-    <section className="py-24 lg:py-64 bg-background relative overflow-hidden border-t border-white/[0.03]">
-      {/* Background Ornaments */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.8)_100%)] opacity-50" />
-      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.03] pointer-events-none" />
-      
-      <div className="s-container relative z-10 text-center">
+    <section className="min-h-[100dvh] lg:h-screen flex flex-col justify-center py-8 lg:py-0 bg-dark-container relative overflow-hidden">
+      <div className="s-container max-w-[1400px]">
         <FadeUp delay={0.1}>
-          <div className="flex items-center justify-center gap-4 mb-12">
-            <span className="w-12 h-[1px] bg-primary/30" />
-            <span className="text-[0.625rem] font-[700] uppercase tracking-[0.5em] font-label text-primary italic">FINAL_COMMAND_INITIATION</span>
-            <span className="w-12 h-[1px] bg-primary/30" />
-          </div>
-          
-          <h2 className="text-[clamp(3rem,10vw,8rem)] font-[800] font-headline text-on-surface leading-[0.85] mb-16 tracking-tighter uppercase max-w-6xl mx-auto">
-            Secure Your <br />
-            <span className="gold-gradient italic">Energy Future.</span>
-          </h2>
-          
-          <p className="text-[1.25rem] lg:text-[1.5rem] text-on-surface/40 font-body max-w-3xl mx-auto mb-20 leading-relaxed italic">
-            Transition to industrial-grade autonomy with India's premier solar infrastructure protocol.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="group relative px-12 py-8 bg-primary overflow-hidden">
-                <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-                <span className="relative z-10 text-background text-[0.75rem] font-[800] uppercase tracking-[0.4em] italic flex items-center gap-4">
-                  INITIATE_PROTOCOL
-                  <span className="material-symbols-outlined text-[20px] group-hover:translate-x-2 transition-transform duration-500">arrow_right_alt</span>
-                </span>
-            </button>
+          <div className="relative w-full rounded-massive overflow-hidden min-h-[400px] lg:min-h-[500px] flex flex-col items-center justify-center p-6 lg:p-12 text-center border border-white/10 bg-accent-container shadow-[0_20px_60px_-15px_rgba(234,126,38,0.5)]">
             
-            <button className="group relative px-12 py-8 border border-white/[0.1] hover:border-primary transition-colors duration-500 overflow-hidden">
-                <div className="absolute inset-0 bg-primary/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-                <span className="relative z-10 text-on-surface text-[0.75rem] font-[800] uppercase tracking-[0.4em] italic">
-                  DOWNLOAD_SPECS
-                </span>
-            </button>
+            {/* Background Texture/Gradient */}
+            <div className="absolute inset-0 z-0 opacity-40 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/20 via-transparent to-transparent" />
+
+            {/* Top Text Meta */}
+            <div className="absolute top-0 left-0 w-full p-4 lg:p-8 flex justify-between items-start z-10 text-white/40">
+              <span className="text-[10px] font-bold tracking-widest uppercase">System Initialization</span>
+              <span className="text-[10px] font-bold tracking-widest uppercase">Grid Independence</span>
+            </div>
+
+            {/* Main Center Content */}
+            <div className="relative z-10 max-w-4xl mt-8 mb-8 lg:mt-6 lg:mb-12">
+              <h2 className="text-[clamp(2.5rem,4.5vw,4.5rem)] font-bold text-white leading-[1.0] tracking-tight-editorial mb-4">
+                Ready to own <br />
+                <span className="text-white/40 font-light italic">your power?</span>
+              </h2>
+              <p className="text-sm lg:text-base text-white/80 font-light max-w-xl mx-auto">
+                Join thousands of Indian businesses and homeowners leveraging the PM Surya Ghar Yojana. We handle the paperwork, you enjoy the returns.
+              </p>
+            </div>
+            
+            {/* Action Button */}
+            <div className="relative z-20">
+               <Link href="/contact" className="group relative inline-flex items-center justify-center gap-3 bg-white text-black font-bold px-8 py-4 rounded-full text-base hover:scale-105 transition-transform duration-500 overflow-hidden">
+                 <span className="relative z-10 tracking-widest uppercase text-[10px] lg:text-xs">Initiate Project</span>
+                 <span className="material-symbols-outlined relative z-10 group-hover:translate-x-1 transition-transform duration-500 text-sm">arrow_right_alt</span>
+                 
+                 {/* Internal Gradient Hover */}
+                 <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0" />
+                 <span className="relative z-10 text-white font-bold tracking-widest uppercase text-[10px] lg:text-xs opacity-0 group-hover:opacity-100 absolute inset-0 flex items-center justify-center gap-3 transition-opacity duration-500">
+                    Initiate Project
+                    <span className="material-symbols-outlined text-sm">arrow_right_alt</span>
+                 </span>
+               </Link>
+               
+               {/* Outer Glow */}
+               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-primary/20 blur-[40px] rounded-full z-0 pointer-events-none" />
+            </div>
+
           </div>
         </FadeUp>
       </div>
-
-      {/* Decorative vertical lines */}
-      <div className="absolute top-0 left-12 w-[1px] h-full bg-white/[0.02]" />
-      <div className="absolute top-0 right-12 w-[1px] h-full bg-white/[0.02]" />
     </section>
   );
 }

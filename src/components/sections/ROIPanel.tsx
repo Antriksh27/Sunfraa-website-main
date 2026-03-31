@@ -1,64 +1,86 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import FadeUp from '@/components/animations/FadeUp';
-import CountUp from '@/components/animations/CountUp';
-import homepageData from '@/content/homepage.json';
 
 export default function ROIPanel() {
-  const { roi } = homepageData;
+  const [bill, setBill] = useState(5000);
+
+  const estimatedSystem = (bill / 1000).toFixed(1); // Roughly 1kW per 1000 INR bill
+  const savingsAnnum = (bill * 12).toLocaleString('en-IN');
+  const payback = "3.5 Years";
 
   return (
-    <section id="roi" className="py-24 lg:py-64 bg-background relative overflow-hidden border-t border-white/[0.03]">
-      <div className="s-container relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start lg:items-end">
+    <section id="roi" className="min-h-[100dvh] lg:h-screen flex flex-col justify-center py-8 lg:py-0 bg-soft-container relative overflow-hidden">
+      <div className="s-container max-w-[1400px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
           
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-6">
             <FadeUp delay={0.1}>
-              <div className="flex items-center gap-4 mb-8">
-                <span className="w-12 h-[1px] bg-primary/30" />
-                <span className="text-[0.625rem] font-[700] uppercase tracking-[0.5em] font-label text-primary italic">YIELD_PROJECTION_v2</span>
+              <div className="inline-flex items-center text-primary font-bold text-[10px] tracking-[0.2em] uppercase mb-4">
+                <span className="w-8 h-px bg-primary mr-4"></span>
+                Financial Engineering
               </div>
-              <h2 className="text-[clamp(3rem,8vw,7rem)] font-[800] font-headline text-on-surface leading-[0.85] mb-12 tracking-tighter uppercase max-w-4xl">
-                The Capital <br />
-                <span className="gold-gradient italic">Multiplier.</span>
+              <h2 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-bold text-black leading-[1.05] tracking-tight-editorial mb-4">
+                Calculate Your <br />
+                <span className="text-gray-400">Independence.</span>
               </h2>
-              <p className="text-[1.125rem] lg:text-[1.35rem] text-on-surface/40 font-body leading-relaxed max-w-2xl italic">
-                Quantified performance metrics for institutional-grade energy deployments. Zero-friction capital recovery.
+              <p className="text-sm lg:text-base text-gray-500 font-light leading-relaxed max-w-xl">
+                Enter your average monthly electricity bill below to see the exact system size you need, and how quickly your investment will pay for itself.
               </p>
             </FadeUp>
           </div>
 
-          <div className="lg:col-span-5 flex flex-col gap-12 lg:items-end mt-12 lg:mt-0">
-            {roi.stats.map((stat: any, i: number) => (
-              <FadeUp key={i} delay={0.2 + (i * 0.1)}>
-                <div className="flex flex-col lg:items-end group">
-                  <div className="flex items-baseline gap-2 lg:gap-4 mb-2">
-                    <span className="text-[clamp(3.5rem,5vw,8rem)] font-[800] font-headline text-on-surface tracking-tighter uppercase group-hover:text-primary transition-colors duration-500 italic leading-none">
-                      <CountUp target={stat.value} duration={2.5} />
-                    </span>
-                    <span className="text-[clamp(1.5rem,2.5vw,2.25rem)] font-[800] font-headline text-primary uppercase italic leading-none">{stat.unit}</span>
+          <div className="lg:col-span-6">
+            <FadeUp delay={0.2}>
+              <div className="bg-white rounded-massive p-6 lg:p-8 border border-black/5 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] relative overflow-hidden">
+                
+                <div className="mb-6">
+                  <div className="flex justify-between items-end mb-3">
+                    <label className="text-[10px] lg:text-xs font-semibold uppercase tracking-widest text-gray-400 block">Average Monthly Bill</label>
+                    <span className="text-xl lg:text-2xl font-bold text-black tracking-tight-editorial">₹{bill.toLocaleString('en-IN')}</span>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <div className="h-[1px] w-8 bg-primary/30" />
-                    <span className="text-[0.75rem] font-[700] uppercase tracking-[0.4em] font-label text-on-surface/40 group-hover:text-on-surface transition-colors duration-500">
-                      {stat.label}
-                    </span>
+                  <input 
+                    type="range" 
+                    min="1000" 
+                    max="50000" 
+                    step="500" 
+                    value={bill} 
+                    onChange={(e) => setBill(Number(e.target.value))}
+                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+                  />
+                  <div className="flex justify-between text-[10px] text-gray-400 mt-2 font-medium">
+                    <span>₹1,000</span>
+                    <span>₹50,000+</span>
                   </div>
-                  <p className="text-[1rem] text-on-surface/30 font-body mt-6 max-w-[280px] lg:text-right italic">
-                    {stat.desc}
-                  </p>
                 </div>
-              </FadeUp>
-            ))}
+
+                <div className="bg-white rounded-[1.5rem] p-4 lg:p-6 border border-gray-100 shadow-sm space-y-3 lg:space-y-4">
+                  <div className="flex justify-between items-center border-b border-gray-100 pb-3 lg:pb-4">
+                    <span className="text-[10px] lg:text-xs font-semibold text-gray-500 uppercase tracking-widest">Est. System Size</span>
+                    <span className="text-lg lg:text-xl font-bold text-black">{estimatedSystem} kW</span>
+                  </div>
+                  <div className="flex justify-between items-center border-b border-gray-100 pb-3 lg:pb-4">
+                    <span className="text-[10px] lg:text-xs font-semibold text-gray-500 uppercase tracking-widest">Annual Savings</span>
+                    <span className="text-lg lg:text-xl font-bold text-primary">₹{savingsAnnum}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] lg:text-xs font-semibold text-gray-500 uppercase tracking-widest">Payback Period</span>
+                    <span className="text-lg lg:text-xl font-bold text-black">{payback}</span>
+                  </div>
+                </div>
+
+                <div className="mt-6">
+                  <button className="w-full liquid-gradient-orange text-white py-3 rounded-full font-bold tracking-widest uppercase text-[10px] lg:text-xs shadow-xl shadow-orange-500/20 hover:-translate-y-1 transition-transform">
+                    Request Formal Quote
+                  </button>
+                </div>
+              </div>
+            </FadeUp>
           </div>
 
         </div>
       </div>
-
-      {/* Decorative HUD markers */}
-      <div className="absolute top-12 left-12 text-[10px] font-mono text-primary/20 uppercase tracking-[0.5em] vertical-rl hidden lg:block">ROI_SYSTEM_STATUS: ONLINE</div>
-      <div className="absolute bottom-12 right-12 text-[10px] font-mono text-primary/20 uppercase tracking-[0.5em] vertical-rl hidden lg:block">DATA_REFRESH: 24H_CYCLE</div>
     </section>
   );
 }

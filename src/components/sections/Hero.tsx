@@ -1,188 +1,210 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
-import Link from 'next/link';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import FadeUp from '@/components/animations/FadeUp';
-import StaggerChildren from '@/components/animations/StaggerChildren';
-import homepageData from '@/content/homepage.json';
+import { useGSAP } from '@gsap/react';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
+gsap.registerPlugin(ScrollTrigger);
+
+const FRAME_COUNT = 234;
+const FRAME_BASE_URL = '/hero-frames/ezgif-frame-';
 
 export default function Hero() {
-  const { hero } = homepageData;
   const containerRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [images, setImages] = useState<HTMLImageElement[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [loadProgress, setLoadProgress] = useState(0);
 
+  // 1. Preload Images
   useEffect(() => {
-    if (!containerRef.current) return;
+    const loadedImages: HTMLImageElement[] = [];
+    let loadedCount = 0;
 
-    // Cinematic Parallax for Video
-    gsap.to(videoRef.current, {
+    const preloadImages = () => {
+      for (let i = 1; i <= FRAME_COUNT; i++) {
+        const img = new Image();
+        const frameNumber = i.toString().padStart(3, '0');
+        img.src = `${FRAME_BASE_URL}${frameNumber}.jpg`;
+        img.onload = () => {
+          loadedCount++;
+          setLoadProgress(Math.floor((loadedCount / FRAME_COUNT) * 100));
+          if (loadedCount === FRAME_COUNT) {
+            setImages(loadedImages);
+            setIsLoaded(true);
+          }
+        };
+        loadedImages[i - 1] = img;
+      }
+    };
+
+    preloadImages();
+  }, []);
+
+  // 2. Canvas Rendering Engine
+  useGSAP(() => {
+    if (!isLoaded || !canvasRef.current || images.length === 0) return;
+
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+    if (!context) return;
+
+    const renderFrame = (index: number) => {
+      const img = images[index];
+      if (!img) return;
+
+      // Cover scaling logic
+      const canvasWidth = canvas.width;
+      const canvasHeight = canvas.height;
+      const imgWidth = img.width;
+      const imgHeight = img.height;
+      
+      const ratio = Math.max(canvasWidth / imgWidth, canvasHeight / imgHeight);
+      const newWidth = imgWidth * ratio;
+      const newHeight = imgHeight * ratio;
+      const x = (canvasWidth - newWidth) / 2;
+      const y = (canvasHeight - newHeight) / 2;
+
+      context.clearRect(0, 0, canvasWidth, canvasHeight);
+      context.drawImage(img, x, y, newWidth, newHeight);
+    };
+
+    // Initialize first frame
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      renderFrame(0);
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    // GSAP ScrollTrigger Sequence
+    const sequence = { frame: 0 };
+    
+    const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
         start: 'top top',
-        end: 'bottom top',
-        scrub: true,
-      },
-      y: 200,
-      opacity: 0.2,
-      scale: 1.1,
+        end: '+=300%', // 3 full scrolls
+        scrub: 1.2, // Extra smooth scrub
+        pin: true,
+      }
     });
 
-    // HUD element floating animations
-    gsap.to('.hud-float', {
-      y: 'random(-10, 10)',
-      x: 'random(-5, 5)',
-      duration: 'random(3, 5)',
-      repeat: -1,
-      yoyo: true,
-      ease: 'sine.inOut',
-    });
-  }, []);
+    // Set Hero active state (handled by globals.css initially)
+    document.body.setAttribute('data-hero-active', 'true');
+
+    // 1. Frame Scrubbing Layer
+    tl.to(sequence, {
+      frame: FRAME_COUNT - 1,
+      snap: 'frame',
+      ease: 'none',
+      duration: 1,
+      onUpdate: () => renderFrame(Math.round(sequence.frame))
+    }, 0);
+
+    // 2. Smooth Reveal Sequence (Final 30% of scroll)
+    // Synchronized Navbar, Content, and Stats
+    
+    // Scroll Indicator Vanish (Early in the scroll)
+    tl.to('.scroll-indicator', { opacity: 0, y: 20, duration: 0.1, ease: 'sine.in' }, 0.1);
+
+    // Navbar Reveal
+    tl.fromTo('.nav-visibility-wrapper', 
+      { opacity: 0, y: -20, visibility: 'hidden' }, 
+      { opacity: 1, y: 0, visibility: 'visible', duration: 0.2, ease: 'sine.inOut' }, 
+      0.7
+    );
+
+    // Hero Main Content
+    tl.fromTo('.hero-content', 
+      { opacity: 0, y: 40 }, 
+      { opacity: 1, y: 0, duration: 0.2, ease: 'sine.out' }, 
+      0.75
+    );
+
+    // Stats Hero
+    tl.fromTo('.hero-stats', 
+      { opacity: 0, y: 20, scale: 0.98 }, 
+      { opacity: 1, y: 0, scale: 1, duration: 0.2, ease: 'sine.out' }, 
+      0.8
+    );
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      document.body.removeAttribute('data-hero-active');
+      document.body.removeAttribute('data-nav-visible');
+    };
+  }, [isLoaded, images]);
 
   return (
     <section 
       ref={containerRef}
       id="hero" 
-      className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-background"
+      className="relative w-full h-screen bg-black overflow-hidden"
     >
-      {/* ── CINEMATIC BACKGROUND ─────────────────────────── */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-40 grayscale contrast-[1.1] scale-105"
-        >
-          <source src="https://assets.mixkit.io/videos/preview/mixkit-solar-panels-in-a-sunny-day-4416-large.mp4" type="video/mp4" />
-        </video>
-        
-        {/* Layered Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent z-10" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background z-10" />
-        <div className="nova-noise-overlay z-20" />
-        
-        {/* Solar Pulse Orb */}
-        <div className="absolute top-1/4 right-0 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[150px] animate-solar-pulse pointer-events-none z-10" />
-      </div>
-
-      {/* ── HUD METADATA ─────────────────────────────────── */}
-      <div className="absolute top-32 left-10 hidden lg:block z-30 hud-float">
-        <div className="space-y-4">
-          <div className="flex flex-col gap-1">
-            <span className="hud-tag opacity-60">GEOGRAPHIC_LOCK</span>
-            <span className="text-[10px] font-label text-primary tracking-widest">23.0225° N, 72.5714° E</span>
+      {/* Loading Overlay */}
+      {!isLoaded && (
+        <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black text-white font-label">
+          <div className="text-2xl font-bold mb-4 tracking-widest uppercase italic">
+            Sunfraa Protocol <span className="text-primary">Loading</span>
           </div>
-          <div className="hud-line !w-16" />
-          <div className="flex flex-col gap-1">
-            <span className="hud-tag opacity-60">SYSTEM_AUTH</span>
-            <span className="text-[10px] font-label text-on-surface/40 tracking-widest">SUNFRAA_GEN_PROT_V4</span>
+          <div className="w-64 h-1 bg-white/10 rounded-full overflow-hidden">
+            <div 
+              className="h-full bg-primary transition-all duration-300" 
+              style={{ width: `${loadProgress}%` }}
+            />
+          </div>
+          <div className="mt-2 text-[10px] opacity-40 uppercase tracking-[0.4em]">
+            Syncing Solar Frames... {loadProgress}%
           </div>
         </div>
-      </div>
+      )}
 
-      <div className="absolute top-32 right-10 hidden lg:block z-30 hud-float text-right">
-        <div className="space-y-2">
-          <span className="hud-tag block opacity-40">SOVEREIGN_ENGINEERING</span>
-          <div className="flex items-center justify-end gap-3">
-            <span className="w-2 h-2 rounded-full bg-secondary animate-pulse shadow-[0_0_10px_var(--color-secondary)]" />
-            <span className="text-[10px] font-label text-on-surface/60 tracking-tighter uppercase">GRID_SECURE_STABLE</span>
+      {/* Canvas for Video Scrubbing */}
+      <canvas 
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      />
+
+      {/* Hero Content Overlay */}
+      <div className="s-container relative z-10 h-full flex flex-col justify-end pb-32">
+        <div className="hero-content max-w-2xl opacity-0">
+          <div className="inline-flex items-center bg-white/10 backdrop-blur-md text-white border border-white/20 px-5 py-1.5 rounded-full font-medium text-[10px] mb-6 tracking-[0.2em] uppercase">
+            Sovereign Solar Infrastructure
           </div>
+          <h1 className="text-[clamp(2.5rem,5.5vw,5.5rem)] font-bold text-white leading-[1.05] tracking-tight-editorial mb-8 drop-shadow-2xl font-headline">
+            Powering India's <br />
+            <span className="liquid-gradient-orange py-1">Sustainable</span> Future.
+          </h1>
         </div>
-      </div>
 
-      {/* ── MAIN CONTENT ─────────────────────────────────── */}
-      <div className="s-container relative z-30 flex flex-col justify-center h-full">
-        <div className="max-w-4xl pt-20">
-          <FadeUp delay={0.1}>
-            <div className="flex items-center gap-4 mb-8">
-              <div className="hero-badge m-0">
-                <span className="hero-badge-dot" />
-                {hero.badge}
-              </div>
-              <div className="h-[1px] w-20 bg-primary/20" />
-              <span className="font-label text-[9px] uppercase tracking-[0.4em] text-on-surface/30">EST_2015</span>
+        {/* Protruding Stats Overlay */}
+        <div className="hero-stats absolute bottom-24 right-16 hidden lg:flex items-center gap-6 opacity-0">
+          <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-massive p-6 shadow-2xl flex items-center gap-8 text-white">
+            <div className="flex flex-col">
+              <span className="text-3xl font-bold tracking-tight-editorial">10k+</span>
+              <span className="text-[10px] font-semibold text-white/40 uppercase tracking-widest">Installations</span>
             </div>
-          </FadeUp>
-
-          <StaggerChildren stagger={0.1}>
-            <h1 className="flex flex-col font-headline font-[800] leading-[0.9] tracking-[-0.04em] mb-10">
-              <span className="text-[clamp(3.5rem,10vw,8rem)] text-on-surface/10 uppercase"
-                    style={{ WebkitTextStroke: '1.5px rgba(201, 168, 76, 0.3)', color: 'transparent' }}>
-                {hero.title}_
-              </span>
-              <span className="text-[clamp(4.5rem,14vw,11rem)] gold-gradient uppercase -mt-[0.1em] drop-shadow-[0_20px_60px_rgba(201,168,76,0.15)]">
-                {hero.highlight}
-              </span>
-            </h1>
-
-            <div className="flex flex-col md:flex-row gap-12 items-start">
-              <div className="max-w-xl space-y-10">
-                <p className="text-[1.125rem] lg:text-[1.35rem] text-on-surface/60 font-body leading-relaxed border-l-2 border-primary/20 pl-8">
-                  {hero.desc}
-                </p>
-
-                <div className="flex flex-wrap gap-6 pt-4">
-                  <Link href="/book-audit" className="btn-primary min-w-[240px] group">
-                    <span>{hero.cta.primary}</span>
-                    <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </Link>
-                  <Link href="/#manifesto" className="btn-outline min-w-[200px] border-on-surface/10 hover:border-primary/50 text-on-surface/80">
-                    {hero.cta.secondary}
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </StaggerChildren>
-        </div>
-      </div>
-
-      {/* ── BOTTOM STATS BAR ─────────────────────────────── */}
-      <div className="absolute bottom-0 left-0 w-full z-40 bg-background/80 backdrop-blur-xl border-t border-white/[0.03]">
-        <div className="s-container py-8 lg:py-12">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-24">
-            {hero.stats.map((stat, i) => (
-              <div key={i} className="flex flex-col gap-2 relative group">
-                <div className="text-[9px] font-label text-primary/30 tracking-widest absolute -top-4">[{String(i+1).padStart(2, '0')}]</div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl lg:text-4xl font-headline font-[800] text-on-surface group-hover:text-primary transition-colors duration-500 tracking-tighter">
-                    {stat.value}
-                  </span>
-                  <span className="text-[0.7rem] font-label text-primary/60 font-bold uppercase">{stat.unit}</span>
-                </div>
-                <div className="h-[1px] w-full bg-white/[0.05] relative overflow-hidden">
-                  <div className="absolute inset-0 bg-primary/40 translate-x-[-100%] group-hover:translate-x-[0%] transition-transform duration-700" />
-                </div>
-                <p className="text-[0.6rem] font-label text-on-surface/30 uppercase tracking-[0.25em]">{stat.label}</p>
-              </div>
-            ))}
-            
-            {/* Real-time Ticker Placeholder */}
-            <div className="hidden lg:flex flex-col justify-center border-l border-white/[0.05] pl-12">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
-                <span className="text-[10px] font-label text-secondary uppercase tracking-widest">Live_Production</span>
-              </div>
-              <span className="text-xl font-headline font-bold text-on-surface/80">42,891 <span className="text-[10px] font-label opacity-40">MWh</span></span>
+            <div className="h-12 w-px bg-white/10"></div>
+            <div className="flex flex-col">
+              <span className="text-3xl font-bold tracking-tight-editorial">50MW</span>
+              <span className="text-[10px] font-semibold text-white/40 uppercase tracking-widest">Active Power</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* ── SIDEBAR PROTOCOL LABEL ───────────────────────── */}
-      <div className="absolute right-12 top-1/2 -rotate-90 origin-right translate-y-[-50%] hidden xl:block z-30">
-        <span className="text-[10px] font-label uppercase tracking-[1em] text-on-surface/10">
-          SOLAR_SUPREMACY_SYSTEM_INIT
-        </span>
+      {/* Scroll Indicator */}
+      <div className="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4">
+        <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-white drop-shadow-lg">Scroll to Explore</span>
+        <div className="w-px h-12 bg-gradient-to-b from-white to-transparent animate-pulse" />
       </div>
+
+      {/* Dark Overlay for improved text legibility */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 pointer-events-none z-[5]" />
     </section>
   );
 }

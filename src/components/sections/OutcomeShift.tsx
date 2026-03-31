@@ -2,72 +2,74 @@
 
 import React from 'react';
 import FadeUp from '@/components/animations/FadeUp';
-import Image from 'next/image';
-import homepageData from '@/content/homepage.json';
 
 export default function OutcomeShift() {
-  const { outcome } = homepageData;
-
   return (
-    <section id="outcome" className="py-24 lg:py-40 bg-background relative overflow-hidden">
-      <div className="s-container">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+    <section id="subsidies" className="min-h-[100dvh] lg:h-screen flex flex-col justify-center py-6 lg:py-0 bg-dark-container relative overflow-hidden">
+      <div className="s-container max-w-[1400px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
           
-          <div className="lg:col-span-6 relative order-2 lg:order-1 min-w-0">
-            <FadeUp delay={0.1}>
-              <div className="relative aspect-[4/5] lg:aspect-[16/10] overflow-hidden group">
-                <Image
-                  src="https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=2070&auto=format&fit=crop"
-                  alt="Industrial Solar Infrastructure"
-                  fill
-                  className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-out"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
-                
-                {/* HUD Overlay */}
-                <div className="absolute top-6 left-6 p-4 glass border-white/[0.05] backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden sm:block">
-                  <span className="text-[9px] font-label text-primary uppercase tracking-widest block mb-1">Asset_Verification</span>
-                  <div className="h-[1px] w-full bg-primary/30 mb-2" />
-                  <span className="text-xs font-headline text-on-surface">STATUS: OPTIMIZED</span>
-                </div>
+          {/* Left Side: Visual/Cards */}
+          <div className="lg:col-span-6 relative order-2 lg:order-1 flex justify-center">
+            <FadeUp delay={0.1} className="w-full max-w-lg relative">
+              
+              {/* Main Subsidy Card */}
+              <div className="bg-[#262A2E] border border-white/10 rounded-massive p-6 lg:p-10 relative z-10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)]">
+                 <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-6 shadow-inner">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Emblem_of_India.svg/200px-Emblem_of_India.svg.png" className="h-6 object-contain opacity-80" alt="Govt. of India" />
+                 </div>
+                 
+                 <h3 className="text-2xl font-bold text-white mb-2 tracking-tight-editorial">PM Surya Ghar</h3>
+                 <p className="text-primary font-semibold tracking-widest text-[10px] uppercase mb-6">Muft Bijli Yojana</p>
+                 
+                 <div className="space-y-4">
+                    <div className="flex justify-between items-center border-b border-white/5 pb-3">
+                       <span className="text-gray-400 text-sm font-light">System Capacity</span>
+                       <span className="text-white text-sm font-bold">1 kW to 3+ kW</span>
+                    </div>
+                    <div className="flex justify-between items-center border-b border-white/5 pb-3">
+                       <span className="text-gray-400 text-sm font-light">Subsidy Amount</span>
+                       <span className="text-primary font-bold text-lg">Up to ₹78,000</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                       <span className="text-gray-400 text-sm font-light">Sunfraa Assistance</span>
+                       <span className="text-white font-bold bg-white/10 px-3 py-1 rounded-full text-[10px] tracking-widest uppercase">100% Handled</span>
+                    </div>
+                 </div>
               </div>
 
-              {/* Floating Data Badge */}
-              <div className="absolute -bottom-6 sm:-bottom-10 -right-2 sm:-right-6 lg:-right-10 p-6 sm:p-10 bg-surface/80 border border-white/[0.05] backdrop-blur-2xl group shadow-2xl max-w-[85vw] sm:max-w-none">
-                <span className="text-[0.625rem] font-label text-primary uppercase tracking-[0.2em] block mb-3 italic">ROVEREIGN_METRIC_ACTIVATE</span>
-                <span className="text-3xl sm:text-4xl lg:text-5xl font-headline font-[900] text-on-surface tracking-tight leading-[1] block">100%<br />AUTONOMY</span>
-                <div className="h-1 w-12 bg-primary mt-6 group-hover:w-full transition-all duration-700" />
-              </div>
+              {/* Decorative Floating Element */}
+              <div className="absolute -bottom-4 -right-4 w-32 h-32 liquid-gradient-orange rounded-full blur-[60px] opacity-40 z-0"></div>
+              
             </FadeUp>
           </div>
 
-          <div className="lg:col-span-6 order-1 lg:order-2 min-w-0 pt-8 lg:pt-0">
+          {/* Right Side: Text Area */}
+          <div className="lg:col-span-6 order-1 lg:order-2 pt-4 lg:pt-0">
             <FadeUp delay={0.2}>
-              <div className="flex items-center gap-4 mb-8">
-                <span className="text-[0.625rem] font-[700] uppercase tracking-[0.5em] font-label text-primary italic break-words w-full sm:w-auto">
-                  {outcome.label || "THE_SOLAR_SHIFT"}
-                </span>
-                <div className="h-[1px] flex-grow bg-white/[0.05] hidden sm:block" />
+              <div className="inline-flex items-center text-primary font-bold text-[10px] tracking-[0.2em] uppercase mb-4">
+                <span className="w-8 h-px bg-primary mr-4"></span>
+                Government Incentives
               </div>
               
-              <h2 className="text-[clamp(2.5rem,5.5vw,5.5rem)] font-[800] font-headline gold-gradient uppercase leading-[0.9] mb-10 tracking-tight break-words">
-                {outcome.title}
+              <h2 className="text-[clamp(1.75rem,3.5vw,2.75rem)] font-bold text-white leading-[1.05] tracking-tight-editorial mb-4">
+                Get Paid to <br />
+                <span className="text-gray-500">Go Solar.</span>
               </h2>
 
-              <div className="space-y-8">
-                <p className="text-[1.125rem] lg:text-[1.35rem] text-on-surface/50 font-body leading-relaxed italic break-words pr-4 lg:pr-0">
-                  {outcome.desc}
+              <div className="space-y-5">
+                <p className="text-[clamp(1rem,1.2vw,1.15rem)] text-gray-400 font-light leading-relaxed">
+                  The Indian Government is actively incentivizing the shift to renewable energy. Under the PM Surya Ghar Yojana, recover your costs directly.
                 </p>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6">
-                  <div className="space-y-4 p-8 border-l border-white/[0.05] hover:border-primary transition-colors">
-                    <span className="text-[0.625rem] font-label text-primary tracking-widest block font-bold">FROM: LIABILITY</span>
-                    <p className="text-sm text-on-surface/40 leading-relaxed font-body">Monthly capital drainage into non-renewable utility grids with zero terminal value.</p>
-                  </div>
-                  <div className="space-y-4 p-8 border-l border-white/[0.05] hover:border-primary transition-colors">
-                    <span className="text-[0.625rem] font-label text-secondary tracking-widest block font-bold">TO: SOVEREIGNTY</span>
-                    <p className="text-sm text-on-surface/40 leading-relaxed font-body">Permanent energy independence through self-owned generation infrastructure.</p>
-                  </div>
+                <p className="text-[clamp(1rem,1.2vw,1.15rem)] text-white font-medium leading-relaxed">
+                  Sunfraa manages the entire bureaucratic process. We ensure you get every rupee you deserve without lifting a finger.
+                </p>
+                
+                <div className="pt-4">
+                    <button className="bg-white text-black px-6 py-3 rounded-full font-bold text-sm tracking-wide hover:-translate-y-1 transition-transform shadow-lg shadow-white/10">
+                        Check Eligibility
+                    </button>
                 </div>
               </div>
             </FadeUp>

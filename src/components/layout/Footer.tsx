@@ -28,7 +28,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-background py-24 lg:py-64 relative overflow-hidden border-t border-white/[0.03]">
+    <footer className="bg-surface py-16 lg:py-32 relative overflow-hidden border-t border-white/[0.03]">
       {/* Background Ornaments */}
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
       
@@ -37,11 +37,14 @@ export default function Footer() {
 
           {/* Brand & Mission */}
           <div className="lg:col-span-5 space-y-12">
-            <Link href="/" className="group flex flex-col items-start pt-2">
-              <span className="text-3xl lg:text-4xl font-[800] font-headline text-on-surface tracking-tighter uppercase leading-none">
-                SUNFRAA <span className="text-primary italic group-hover:text-on-surface transition-colors duration-500">GLOBAL</span>
-              </span>
-              <span className="text-[0.625rem] font-[700] font-label text-primary uppercase tracking-[0.6em] mt-3 italic opacity-60">SOVEREIGN_ENERGY_SYSTEMS</span>
+            <Link href="/" className="group flex items-center pt-2">
+              <div className="relative h-16 md:h-20 bg-white p-3 md:p-4 rounded-2xl shadow-[0_0_40px_rgba(255,255,255,0.05)] ring-1 ring-white/10">
+                <img 
+                  src="/sunfraa-global-logo.png" 
+                  alt="Sunfraa Global"
+                  className="w-auto h-full object-contain"
+                />
+              </div>
             </Link>
             
             <p className="text-[1.125rem] text-on-surface/50 font-body max-w-sm leading-relaxed italic">

@@ -1,32 +1,43 @@
 @import "tailwindcss";
 
 @theme {
-  /* ── SOLAR SUPREMACY PALETTE ──────────────────────── */
-  --color-background: #0D1117;
-  --color-surface: #14181F;
-  --color-surface-bright: #1E232B;
+  /* ── INDIAN SOLAR HYBRID PALETTE (White/Dark Alternating) ──────────────── */
   
-  --color-primary: #C9A84C; /* Solar Gold */
-  --color-primary-light: #E6C364;
-  --color-primary-deep: #A68632;
+  /* The foundation is pure white to support the crisp editorial look */
+  --color-background: #FFFFFF;
+  --color-background-off: #F8FAFC;
+
+  /* The alternating Dark Container Blocks */
+  --color-surface: #1A1D20;
+  --color-surface-bright: #262A2E;
   
-  --color-secondary: #2ECC89; /* Energy Mint */
-  --color-on-background: #F4F4F4;
-  --color-on-surface: #E0E0E0;
-  --color-on-primary: #0D1117;
+  /* The Designer 'Action Orange' */
+  --color-primary: #EA7E26;
+  --color-primary-light: #FF9B42;
+  --color-primary-deep: #C96515;
   
-  --color-outline: rgba(201, 168, 76, 0.2);
-  --color-outline-strong: rgba(201, 168, 76, 0.4);
+  /* Utility contrasts */
+  --color-on-background: #000000;
+  --color-on-background-muted: #535862;
+  --color-background-soft: #F2F2EC;
+  --color-on-background-soft: #1A1A1A;
+  --color-on-surface: #F8FAFC;
+  --color-on-primary: #FFFFFF;
+  
+  --color-outline: rgba(234, 126, 38, 0.2);
+  --color-outline-strong: rgba(234, 126, 38, 0.4);
 
   /* ── FONTS ────────────────────────────────────────── */
   --font-headline: var(--font-headline);
   --font-body: var(--font-body);
   --font-label: var(--font-label);
 
-  /* ── RADIUS ───────────────────────────────────────── */
-  --radius-DEFAULT: 0px; /* Sharp agency aesthetic */
-  --radius-lg: 2px;
-  --radius-xl: 4px;
+  /* ── RADIUS (Massive 'Apple-esque' structural corners) ──────────────── */
+  --radius-DEFAULT: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-2xl: 48px;  /* 3rem */
+  --radius-3xl: 64px;  /* 4rem */
   --radius-full: 9999px;
 
   /* ── EASES ────────────────────────────────────────── */
@@ -45,7 +56,7 @@
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Section rhythm */
-  --section-py:   clamp(5rem, 10vw, 9rem);
+  --section-py:   clamp(2rem, 5vh, 4rem);
   --section-px:   clamp(1.25rem, 5vw, 3rem);
   --container-w:  1320px;
 }
@@ -269,3 +280,56 @@
 .horizontal-tb {
   writing-mode: horizontal-tb;
 }
+
+/* ── INDIAN SOLAR SPECIFIC UTILITIES ──────────────── */
+.bg-dark-container {
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+}
+
+.bg-white-container {
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+}
+
+.bg-soft-container {
+  background-color: var(--color-background-soft);
+  color: var(--color-on-background-soft);
+}
+
+.bg-accent-container {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.tracking-tight-editorial {
+  letter-spacing: -0.02em;
+}
+
+.rounded-massive {
+  border-radius: var(--radius-3xl); /* 4rem */
+}
+
+.liquid-gradient-orange {
+  background: linear-gradient(135deg, var(--color-primary-deep) 0%, var(--color-primary-light) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* ── NAV VISIBILITY ENGINE ─────────────────────────── */
+/* Initial state on Hero page */
+body[data-hero-active="true"] .nav-visibility-wrapper {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+}
+
+/* Revealed state on Hero page */
+body[data-hero-active="true"][data-nav-visible="true"] .nav-visibility-wrapper {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+

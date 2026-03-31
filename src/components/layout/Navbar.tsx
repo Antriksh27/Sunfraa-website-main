@@ -27,21 +27,24 @@ export default function Navbar() {
     <>
       <nav
         ref={navRef}
-        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 ${
+        className={`fixed top-0 left-0 right-0 z-[100] transition-[background,height,backdrop-filter,border] duration-700 ease-io ${
           scrolled 
             ? 'bg-background/80 backdrop-blur-xl border-b border-white/[0.05] h-20' 
             : 'bg-transparent border-b border-transparent h-28'
-        }`}
+        } nav-visibility-wrapper`}
       >
         <div className="s-container h-full">
           <div className="flex items-center justify-between h-full">
             
             {/* Logo */}
-            <Link href="/" className="group flex flex-col">
-              <span className="text-[1.25rem] font-[800] tracking-[-0.02em] font-headline text-on-surface uppercase leading-none">
-                SUNFRAA <span className="text-primary italic group-hover:text-on-surface transition-colors duration-500">GLOBAL</span>
-              </span>
-              <span className="text-[0.5rem] font-[700] font-label text-primary uppercase tracking-[0.6em] mt-1 italic opacity-60">SOVEREIGN_SYSTEMS</span>
+            <Link href="/" className="group relative flex items-center">
+              <div className={`relative transition-all duration-700 ${scrolled ? 'h-[6.75rem] md:h-[8rem]' : 'h-[9.5rem] md:h-44'} ${!scrolled ? 'bg-white p-4 md:p-6 rounded-2xl shadow-[0_0_30px_rgba(255,255,255,0.1)] ring-1 ring-white/20' : ''} -ml-2 lg:-ml-6`}>
+                <img 
+                  src="/sunfraa-global-logo.png" 
+                  alt="Sunfraa Global"
+                  className="w-auto h-full object-contain"
+                />
+              </div>
             </Link>
 
             {/* Desktop Links */}
@@ -50,7 +53,7 @@ export default function Navbar() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="relative text-[0.625rem] font-[700] uppercase tracking-[0.3em] font-label text-on-surface/40 hover:text-primary transition-colors duration-500 group py-2"
+                  className="relative text-[0.625rem] font-[700] uppercase tracking-[0.3em] font-label text-on-background hover:text-primary transition-colors duration-500 group py-2"
                 >
                   {link.label}
                   <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-primary transition-all duration-500 group-hover:w-full" />
@@ -70,7 +73,7 @@ export default function Navbar() {
 
             {/* Mobile Trigger */}
             <button
-              className="lg:hidden text-on-surface hover:text-primary transition-colors"
+              className="lg:hidden text-on-background hover:text-primary transition-colors"
               onClick={() => setMobileOpen(!mobileOpen)}
             >
               <Menu size={24} />

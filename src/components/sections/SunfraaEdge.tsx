@@ -2,57 +2,67 @@
 
 import React from 'react';
 import FadeUp from '@/components/animations/FadeUp';
-import homepageData from '@/content/homepage.json';
+
+const edgePoints = [
+  {
+    title: "ALMM Compliance",
+    desc: "100% of our panels meet the rigorous standards set by the Ministry of New and Renewable Energy (MNRE), guaranteeing subsidy eligibility."
+  },
+  {
+    title: "Cyclone Resilient",
+    desc: "Our mounting structures are engineered with hot-dip galvanized steel, certified to withstand wind loads up to 180 km/h."
+  },
+  {
+    title: "Net Metering Handled",
+    desc: "We manage the entire state DISCOM net-metering approval process, ensuring you get credited for every unit you export."
+  },
+  {
+    title: "25-Year Warranty",
+    desc: "A generational investment secured by an ironclad quarter-century performance warranty on all module transition efficiencies."
+  }
+];
 
 export default function SunfraaEdge() {
-  const { edge } = homepageData;
-
   return (
-    <section id="edge" className="py-24 lg:py-40 bg-surface border-t border-white/[0.03] relative overflow-hidden">
-      <div className="s-container">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-32 items-start">
+    <section id="edge" className="min-h-[100dvh] lg:h-screen flex flex-col justify-center py-8 lg:py-0 bg-soft-container relative overflow-hidden">
+      <div className="s-container max-w-[1400px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          <div className="lg:col-span-5 sticky top-32">
+          <div className="lg:col-span-5 lg:sticky lg:top-32">
             <FadeUp delay={0.1}>
-              <div className="flex items-center gap-3 mb-8">
-                <span className="w-10 h-[1px] bg-primary/40" />
-                <span className="text-[0.625rem] font-[700] uppercase tracking-[0.5em] font-label text-primary italic">
-                   {edge.label || "SOVEREIGN_EDGE"}
-                </span>
+              <div className="inline-flex items-center text-primary font-bold text-[10px] tracking-[0.2em] uppercase mb-4">
+                <span className="w-8 h-px bg-primary mr-4"></span>
+                The Standard
               </div>
-              <h2 className="text-[clamp(2.5rem,6vw,5rem)] font-[800] font-headline text-on-surface leading-[0.95] mb-12 tracking-tight uppercase">
-                {edge.title}
+              <h2 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-bold text-black leading-[1.05] tracking-tight-editorial mb-4">
+                Uncompromising <br />
+                <span className="text-gray-400">Quality.</span>
               </h2>
-              <div className="w-24 h-[2px] bg-primary mb-12" />
-              <p className="text-[1.125rem] lg:text-[1.35rem] text-on-surface/40 font-body italic leading-relaxed max-w-md">
-                "Our engineering is built for the next 25 years of climate-critical energy production."
+              <div className="w-10 h-1 bg-primary mb-6 rounded-full" />
+              <p className="text-sm lg:text-base text-gray-500 font-light leading-relaxed max-w-sm">
+                We do not compromise on hardware. Our engineering is built specifically to outlast the harsh Indian environment.
               </p>
             </FadeUp>
           </div>
 
-          <div className="lg:col-span-7 space-y-12 lg:pt-12">
-            {edge.points.map((point: any, i: number) => (
+          <div className="lg:col-span-7 space-y-6 lg:space-y-8 lg:pt-0">
+            {edgePoints.map((point, i) => (
               <FadeUp key={i} delay={0.2 + (i * 0.1)}>
                 <div className="group relative">
-                  <div className="flex gap-12 lg:gap-16">
-                    <span className="text-xl font-headline font-[900] text-primary/20 group-hover:text-primary transition-colors duration-500 mt-2">
+                  <div className="flex gap-4 lg:gap-8">
+                    <span className="text-lg lg:text-xl font-bold text-gray-300 group-hover:text-primary transition-colors duration-500 mt-0.5 tracking-tighter">
                        {String(i + 1).padStart(2, '0')}
                     </span>
-                    <div className="space-y-6">
-                      <h3 className="text-3xl lg:text-4xl font-[800] font-headline text-on-surface uppercase tracking-tight group-hover:text-primary transition-colors duration-500">
+                    <div className="space-y-2">
+                       <h3 className="text-lg lg:text-xl font-bold text-black tracking-tight-editorial group-hover:text-primary transition-colors duration-500">
                         {point.title}
                       </h3>
-                      <p className="text-[1rem] lg:text-[1.125rem] text-on-surface/50 font-body leading-relaxed max-w-xl">
+                      <p className="text-sm lg:text-base text-gray-500 font-light leading-relaxed max-w-xl">
                         {point.desc}
                       </p>
-                      
-                      <div className="flex items-center gap-6 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                         <span className="text-[9px] font-label text-primary uppercase tracking-[0.3em]">Protocol_Ready</span>
-                         <div className="h-[1px] w-12 bg-primary/30" />
-                      </div>
                     </div>
                   </div>
-                  <div className="mt-16 h-[1px] w-full bg-white/[0.05] group-hover:bg-primary/20 transition-colors duration-700" />
+                  <div className="mt-6 h-px w-full bg-black/5 group-hover:bg-primary/30 transition-colors duration-700" />
                 </div>
               </FadeUp>
             ))}

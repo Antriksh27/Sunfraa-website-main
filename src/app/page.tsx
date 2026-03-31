@@ -6,6 +6,8 @@ import CredibilityStrip from '@/components/sections/CredibilityStrip';
 import ProblemFraming from '@/components/sections/ProblemFraming';
 import OutcomeShift from '@/components/sections/OutcomeShift';
 import BenefitsGrid from '@/components/sections/BenefitsGrid';
+import RooftopSolar from '@/components/sections/RooftopSolar';
+import GroundMountSolar from '@/components/sections/GroundMountSolar';
 import GlobalPortfolio from '@/components/sections/GlobalPortfolio';
 import ProcessJourney from '@/components/sections/ProcessJourney';
 import ServicesBento from '@/components/sections/ServicesBento';
@@ -25,6 +27,8 @@ export default function HomePage() {
       <ProblemFraming />
       <OutcomeShift />
       <BenefitsGrid />
+      <RooftopSolar />
+      <GroundMountSolar />
       <GlobalPortfolio />
       <ProcessJourney />
       <ServicesBento />
