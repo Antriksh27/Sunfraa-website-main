@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Hero from '@/components/sections/Hero';
-import CredibilityStrip from '@/components/sections/CredibilityStrip';
+
 import ProblemFraming from '@/components/sections/ProblemFraming';
 import OutcomeShift from '@/components/sections/OutcomeShift';
 import BenefitsGrid from '@/components/sections/BenefitsGrid';
