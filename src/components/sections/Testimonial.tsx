@@ -1,102 +1,88 @@
 'use client';
 
 import React from 'react';
-import FadeUp from '@/components/animations/FadeUp';
+import { AnimatedTestimonials } from '@/components/ui/testimonial';
+import type { Testimonial } from '@/components/ui/testimonial';
 
-const testimonialsData = [
+const sunfraaTestimonials: Testimonial[] = [
   {
-    type: 'image',
-    img: 'https://images.unsplash.com/photo-1548678967-f1fc5d33934d?q=80&w=2000&auto=format&fit=crop',
-    alt: 'Customer smiling'
-  },
-  {
-    type: 'quote',
+    quote:
+      'Sunfraa completely eliminated our ₹12,000 monthly electricity bill. The PM Surya Ghar subsidy process was handled flawlessly — we didn\'t have to chase a single document.',
     name: 'Rajesh Sharma',
-    company: 'Residential Owner, Jaipur',
-    quote: 'Sunfraa completely eliminated our ₹12,000 monthly electricity bill. The PM Surya Ghar subsidy process was handled flawlessly.'
+    designation: 'Residential Owner, Jaipur',
+    src: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
   {
-    type: 'image',
-    img: 'https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?q=80&w=2000&auto=format&fit=crop',
-    alt: 'Business woman with tablet'
-  },
-  {
-    type: 'quote',
+    quote:
+      'We installed a 100kW rooftop system for our textile unit. The ALMM-compliant panels and heavy-duty cyclone-rated structures give us immense confidence in our investment.',
     name: 'Anjali Desai',
-    company: 'Textile Manufacturing, Surat',
-    quote: 'We installed a 100kW system. The ALMM-compliant panels and heavy-duty cyclone structures give us immense confidence.'
-  }
+    designation: 'Textile Manufacturing, Surat',
+    src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  },
+  {
+    quote:
+      'Sunfraa\'s engineering team designed a ground-mount solution for our 5-acre site that maximises generation while keeping our land accessible. Truly world-class execution.',
+    name: 'Vikram Patel',
+    designation: 'Agricultural Landowner, Ahmedabad',
+    src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  },
+  {
+    quote:
+      'From survey to commissioning, Sunfraa delivered our 250kW commercial plant in under 45 days. Their project management and after-sales monitoring are outstanding.',
+    name: 'Meera Krishnan',
+    designation: 'Operations Head, Chennai IT Park',
+    src: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  },
+  {
+    quote:
+      'The ROI was almost immediate — within 3 years we\'ll have recovered our entire investment. Sunfraa\'s transparent pricing and Tier-1 components set them apart.',
+    name: 'Arjun Mehta',
+    designation: 'CFO, Apex Group of Industries',
+    src: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  },
 ];
 
-export default function Testimonial() {
+export default function TestimonialSection() {
   return (
-    <section id="testimonials" className="min-h-[100dvh] lg:h-screen flex flex-col justify-center py-8 lg:py-0 bg-white-container relative overflow-hidden text-black">
-      <div className="s-container max-w-[1400px]">
-        
-        {/* Header */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-4 lg:mb-6 gap-4">
-          <FadeUp delay={0.1} className="max-w-3xl">
-            <div className="inline-flex items-center text-primary font-bold text-[10px] tracking-[0.2em] uppercase mb-3: lg:mb-4">
-              <span className="w-8 h-px bg-primary mr-4"></span>
-              Client Success
-            </div>
-            <h2 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-bold text-black leading-[1.05] tracking-tight-editorial">
-              Trusted by Thousands<br/><span className="text-gray-400">of Indian Homes.</span>
-            </h2>
-          </FadeUp>
-          
-          <FadeUp delay={0.2}>
-            {/* Arrows */}
-            <div className="flex items-center gap-3">
-              <button className="w-10 h-10 rounded-full bg-white border border-gray-200 text-black flex items-center justify-center hover:bg-gray-50 transition-colors shadow-[0_5px_15px_rgba(0,0,0,0.05)]">
-                <svg className="w-5 h-5 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </button>
-              <button className="w-10 h-10 rounded-full liquid-gradient-orange text-white flex items-center justify-center hover:scale-105 transition-transform shadow-xl shadow-orange-500/30">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </button>
-            </div>
-          </FadeUp>
+    <section
+      id="testimonials"
+      className="min-h-[100dvh] lg:min-h-screen flex flex-col justify-center bg-white-container relative overflow-hidden text-black"
+    >
+      {/* Animated grid background */}
+      <style>
+        {`
+          @keyframes testimonial-grid {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+          }
+          .testimonial-animated-grid {
+            width: 200%;
+            height: 200%;
+            background-image: 
+              linear-gradient(to right, #e2e8f0 1px, transparent 1px), 
+              linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+            background-size: 3rem 3rem;
+            animation: testimonial-grid 40s linear infinite alternate;
+          }
+        `}
+      </style>
+      <div className="testimonial-animated-grid absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.07]" />
+
+      {/* Section Header */}
+      <div className="s-container max-w-[1400px] relative z-10 pt-12 lg:pt-0">
+        <div className="inline-flex items-center text-[var(--color-primary)] font-bold text-[10px] tracking-[0.2em] uppercase mb-2">
+          <span className="w-8 h-px bg-[var(--color-primary)] mr-4"></span>
+          Client Success
         </div>
+        <h2 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-bold text-black leading-[1.05] tracking-tight-editorial">
+          Trusted by Thousands<br />
+          <span className="text-gray-400">of Indian Homes &amp; Businesses.</span>
+        </h2>
+      </div>
 
-        {/* Carousel */}
-        <FadeUp delay={0.3}>
-          <div className="flex overflow-x-auto gap-4 lg:gap-6 pb-6 snap-x snap-mandatory scrollbar-hide cursor-grab active:cursor-grabbing" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-            {testimonialsData.map((item, idx) => (
-              <div key={idx} className="snap-center shrink-0 w-[280px] md:w-[340px] lg:w-[380px] h-[320px] rounded-massive overflow-hidden relative shadow-[0_20px_60px_-15px_rgba(0,0,0,0.08)]">
-                {item.type === 'image' ? (
-                  <div className="w-full h-full relative group bg-gray-100">
-                    <img 
-                      src={item.img} 
-                      alt={item.alt} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-black/10" />
-                  </div>
-                ) : (
-                  <div className="w-full h-full bg-dark-container p-6 lg:p-8 flex flex-col justify-between relative group hover:bg-[#212529] transition-colors duration-500 text-white border border-white/5">
-                     <p className="text-sm lg:text-base leading-[1.4] font-light text-gray-300">
-                       "{item.quote}"
-                     </p>
-                     <div>
-                       <h4 className="font-bold text-lg mb-1 tracking-tight-editorial">{item.name}</h4>
-                       <p className="text-primary text-[10px] uppercase tracking-widest">{item.company}</p>
-                     </div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </FadeUp>
-
-        {/* Drag Indicator */}
-        <FadeUp delay={0.4} className="flex justify-center mt-2">
-            <span className="text-gray-400 text-[10px] tracking-[0.2em] uppercase font-semibold">Drag to slide</span>
-        </FadeUp>
-
+      {/* Animated Testimonials */}
+      <div className="relative z-10">
+        <AnimatedTestimonials testimonials={sunfraaTestimonials} autoplay />
       </div>
     </section>
   );

@@ -59,6 +59,28 @@
   --section-py:   clamp(2rem, 5vh, 4rem);
   --section-px:   clamp(1.25rem, 5vw, 3rem);
   --container-w:  1320px;
+
+  /* ── shadcn-compatible tokens (HSL) ────────────────── */
+  --background: 0 0% 100%;
+  --foreground: 0 0% 0%;
+  --primary: 27 82% 53%;            /* #EA7E26 */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 210 7% 14%;          /* #212529 */
+  --secondary-foreground: 210 20% 98%;
+  --muted: 210 6% 55%;
+  --muted-foreground: 215 8% 42%;
+  --accent: 27 82% 53%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 0 0% 90%;
+  --input: 0 0% 90%;
+  --ring: 27 82% 53%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 0%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 0%;
+  --radius: 16px;
 }
 
 /* ─────────────────────────────────────────────────────
@@ -242,6 +264,15 @@
 
   .text-glow-primary {
     text-shadow: 0 0 30px rgba(230, 195, 100, 0.3);
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }
 

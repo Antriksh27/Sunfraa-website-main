@@ -15,15 +15,16 @@ import ROIPanel from '@/components/sections/ROIPanel';
 import InfrastructureSuite from '@/components/sections/InfrastructureSuite';
 import Testimonial from '@/components/sections/Testimonial';
 import SunfraaEdge from '@/components/sections/SunfraaEdge';
+import TrustedBy from '@/components/sections/TrustedBy';
 import TechnicalFAQ from '@/components/sections/TechnicalFAQ';
-import AuthorityPartners from '@/components/sections/AuthorityPartners';
+import AuthoritySection from '@/components/sections/AuthoritySection';
 import FinalCTA from '@/components/sections/FinalCTA';
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <CredibilityStrip />
+      <AuthoritySection />
       <ProblemFraming />
       <OutcomeShift />
       <BenefitsGrid />
@@ -35,9 +36,9 @@ export default function HomePage() {
       <ROIPanel />
       <InfrastructureSuite />
       <Testimonial />
+      <TrustedBy />
       <SunfraaEdge />
       <TechnicalFAQ />
-      <AuthorityPartners />
       <FinalCTA />
     </>
   );
