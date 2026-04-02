@@ -87,7 +87,7 @@ export default function TechnicalFAQ() {
     <section 
       ref={containerRef}
       id="faq" 
-      className="s-section s-section-full s-theme-grey !p-0 h-screen overflow-hidden"
+      className="s-section min-h-[120vh] lg:min-h-screen s-theme-grey !p-0 overflow-x-hidden lg:overflow-hidden lg:h-screen"
     >
       {/* Premium Texture Overlay */}
       <div className="absolute inset-0 opacity-[0.35] pointer-events-none mix-blend-multiply z-10 bg-[url('https://www.transparenttextures.com/patterns/p6.png')]" />
@@ -98,10 +98,10 @@ export default function TechnicalFAQ() {
         backgroundSize: '80px 80px' 
       }} />
 
-      <div className="flex h-full w-full relative z-20">
+      <div className="flex flex-col lg:flex-row h-full w-full relative z-20">
         
-         {/* LEFT: Query Manifest (40%) */}
-        <div className="w-[40%] flex flex-col justify-center px-10 lg:px-16 py-8 bg-black/[0.02] relative z-20 h-full border-r border-black/5 overflow-hidden">
+         {/* LEFT: Query Manifest */}
+        <div className="w-full lg:w-[40%] flex flex-col justify-center px-6 md:px-10 lg:px-16 pt-24 pb-12 lg:py-8 bg-black/[0.02] relative z-20 border-b lg:border-b-0 lg:border-r border-black/5 overflow-hidden">
            <div className="faq-header-el space-y-6 lg:space-y-10">
               
               <div className="flex items-center gap-4 s-label uppercase font-black tracking-widest !text-zinc-600">
@@ -121,28 +121,34 @@ export default function TechnicalFAQ() {
                  {faqItems.map((item, i) => (
                     <button 
                       key={i}
-                      onClick={() => setActive(i)}
+                      onClick={() => {
+                        setActive(i);
+                        // On mobile, scroll the content into view
+                        if (window.innerWidth < 1024) {
+                          document.getElementById('faq-content')?.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }}
                       className={cn(
-                        "faq-item w-full group flex items-center justify-between p-5 rounded-none transition-all duration-500 text-left border relative overflow-hidden",
+                        "faq-item w-full group flex items-center justify-between p-4 lg:p-5 rounded-none transition-all duration-500 text-left border relative overflow-hidden",
                         active === i ? "bg-white border-black/10 shadow-2xl shadow-black/5" : "hover:bg-black/5 border-transparent opacity-80 hover:opacity-100"
                       )}
                     >
-                       <div className="space-y-2 relative z-10">
+                       <div className="space-y-1 lg:space-y-2 relative z-10">
                           <div className={cn(
-                            "s-mono !font-black transition-colors duration-500 !text-[10px] tracking-widest",
+                            "s-mono !font-black transition-colors duration-500 !text-[8.5px] lg:!text-[10px] tracking-widest",
                             active === i ? "!text-primary" : "!text-zinc-500"
                           )}>
                              ENTRY_{item.id}
                           </div>
                           <div className={cn(
-                            "font-headline font-black uppercase !text-[13px] tracking-tight transition-colors duration-500 !leading-tight",
+                            "font-headline font-black uppercase text-[11px] lg:!text-[13px] tracking-tight transition-colors duration-500 !leading-tight",
                             active === i ? "!text-zinc-900" : "!text-zinc-600 group-hover:text-zinc-800"
                           )}>
                              {item.q}
                           </div>
                        </div>
-                       <ChevronRight size={18} className={cn(
-                         "transition-transform duration-500 relative z-10",
+                       <ChevronRight size={16} className={cn(
+                         "transition-transform duration-500 relative z-10 shrink-0",
                          active === i ? "text-primary translate-x-1" : "text-zinc-400 group-hover:text-zinc-600"
                        )} />
                     </button>
@@ -152,18 +158,18 @@ export default function TechnicalFAQ() {
            </div>
         </div>
 
-        {/* RIGHT: Resolution Viewport (60%) */}
-        <div ref={viewportRef} className="flex-1 flex flex-col justify-center px-16 lg:px-32 relative h-full overflow-hidden bg-white/40">
+        {/* RIGHT: Resolution Viewport */}
+        <div id="faq-content" ref={viewportRef} className="flex-1 flex flex-col justify-center px-6 md:px-16 lg:px-32 py-16 lg:py-0 relative min-h-[60vh] lg:h-full overflow-hidden bg-white/40">
            
            <div className="faq-resolution-content w-full max-w-2xl space-y-10 lg:space-y-16">
               
-              <div className="flex items-center gap-6">
-                 <div className="w-16 h-16 lg:w-20 lg:h-20 rounded-none bg-primary/10 flex items-center justify-center border border-primary/20 shadow-xl shadow-primary/5 backdrop-blur-xl group-hover:scale-105 transition-transform">
-                    {React.createElement(faqItems[active].icon, { size: 36, className: "text-primary", strokeWidth: 2 })}
+              <div className="flex items-center gap-4 lg:gap-6">
+                 <div className="w-12 h-12 lg:w-20 lg:h-20 rounded-none bg-primary/10 flex items-center justify-center border border-primary/20 shadow-xl shadow-primary/5 backdrop-blur-xl group-hover:scale-105 transition-transform">
+                    {React.createElement(faqItems[active].icon, { size: 24, className: "text-primary lg:size-[36px]", strokeWidth: 2 })}
                  </div>
-                 <div className="space-y-1">
-                    <div className="s-mono !text-primary !opacity-100 uppercase !text-[10px] font-black tracking-widest">Technical Domain</div>
-                    <h3 className="s-h3 !text-2xl lg:!text-4xl !text-zinc-900 uppercase !tracking-tighter font-black">{faqItems[active].category}</h3>
+                 <div className="space-y-0.5 lg:space-y-1">
+                    <div className="s-mono !text-primary !opacity-100 uppercase !text-[8.5px] lg:!text-[10px] font-black tracking-widest">Technical Domain</div>
+                    <h3 className="s-h3 !text-xl lg:!text-4xl !text-zinc-900 uppercase !tracking-tighter font-black">{faqItems[active].category}</h3>
                  </div>
               </div>
 
@@ -172,16 +178,16 @@ export default function TechnicalFAQ() {
                     <div className="absolute top-0 left-0 h-[2px] w-32 bg-primary shadow-[0_0_20px_rgba(244,114,22,0.6)]" />
                  </div>
                  
-                 <p className="s-body !text-xl lg:!text-3xl !text-zinc-700 !font-light !leading-[1.4] !tracking-tight italic font-body">
+                 <p className="s-body !text-lg md:!text-xl lg:!text-3xl !text-zinc-700 !font-light !leading-[1.4] !tracking-tight italic font-body">
                     &ldquo;{faqItems[active].a}&rdquo;
                  </p>
                  
-                 <div className="flex flex-wrap gap-4 pt-6">
-                    <div className="px-5 py-2.5 bg-white border border-black/10 rounded-none s-mono !text-zinc-600 uppercase !text-[10px] font-black tracking-tighter shadow-sm">
-                       Discom Compliance Verified
+                 <div className="flex flex-wrap gap-3 lg:gap-4 pt-4 lg:pt-6">
+                    <div className="px-4 lg:px-5 py-2 lg:py-2.5 bg-white border border-black/10 rounded-none s-mono !text-zinc-600 uppercase !text-[8.5px] lg:!text-[10px] font-black tracking-tighter shadow-sm">
+                       Compliance Verified
                     </div>
-                    <div className="px-5 py-2.5 bg-white border border-black/10 rounded-none s-mono !text-zinc-600 uppercase !text-[10px] font-black tracking-tighter shadow-sm">
-                       Tier 1 ALMM Standard
+                    <div className="px-4 lg:px-5 py-2 lg:py-2.5 bg-white border border-black/10 rounded-none s-mono !text-zinc-600 uppercase !text-[8.5px] lg:!text-[10px] font-black tracking-tighter shadow-sm">
+                       Tier 1 Standard
                     </div>
                  </div>
               </div>
@@ -189,7 +195,7 @@ export default function TechnicalFAQ() {
            </div>
 
            {/* Architectural Decor */}
-           <div className="absolute bottom-20 right-20 w-40 h-40 border border-black/5 opacity-50 s-mono !text-zinc-300 font-bold !text-[80px] pointer-events-none select-none">
+           <div className="absolute bottom-10 right-10 lg:bottom-20 lg:right-20 w-24 h-24 lg:w-40 lg:h-40 border border-black/5 opacity-30 lg:opacity-50 s-mono !text-zinc-300 font-bold text-[60px] lg:!text-[80px] pointer-events-none select-none">
               {faqItems[active].id}
            </div>
 

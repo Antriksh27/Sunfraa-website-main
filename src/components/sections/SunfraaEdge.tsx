@@ -71,15 +71,15 @@ export default function SunfraaEdge() {
     <section 
       ref={containerRef}
       id="edge" 
-      className="s-section s-section-full s-theme-grey !p-0 h-screen overflow-hidden"
+      className="s-section s-theme-grey !p-0 min-h-screen lg:h-screen lg:s-section-full overflow-hidden lg:overflow-hidden h-auto"
     >
       {/* Premium Texture Overlay */}
       <div className="absolute inset-0 opacity-[0.25] pointer-events-none mix-blend-multiply z-10 bg-[url('https://www.transparenttextures.com/patterns/p6.png')]" />
 
-      <div className="s-container relative z-20 w-full h-full flex flex-col lg:flex-row items-center justify-center">
+      <div className="s-container relative z-20 w-full h-auto lg:h-full flex flex-col lg:flex-row items-center justify-center">
         
         {/* LEFT: The Narrative (40%) */}
-        <div className="w-full lg:w-[40%] flex flex-col justify-center px-8 lg:px-20 h-full border-b lg:border-b-0 lg:border-r border-black/5 bg-black/[0.02]">
+        <div className="w-full lg:w-[40%] flex flex-col justify-center px-6 lg:px-20 h-auto lg:h-full border-b lg:border-b-0 lg:border-r border-black/5 bg-black/[0.02] py-16 lg:py-0">
            <div className="edge-header-el space-y-8 lg:space-y-12">
               <div className="flex items-center gap-4 s-label mb-2">
                  <Repeat size={16} className="text-primary" />
@@ -99,7 +99,7 @@ export default function SunfraaEdge() {
         </div>
 
         {/* RIGHT: The Comparative Manifest (60%) */}
-        <div className="w-full lg:w-[60%] flex flex-col justify-around px-8 lg:px-20 h-full relative overflow-hidden py-8 lg:py-16">
+        <div className="w-full lg:w-[60%] flex flex-col justify-around px-6 lg:px-20 h-auto lg:h-full relative lg:overflow-hidden py-16 lg:py-16">
            
            <div className="w-full max-w-4xl space-y-2 lg:space-y-4">
               
@@ -113,7 +113,7 @@ export default function SunfraaEdge() {
               {/* Comparison Rows */}
               <div className="space-y-1 lg:space-y-0">
                 {comparisons.map((item, i) => (
-                  <div key={i} className="edge-row group relative grid grid-cols-2 lg:grid-cols-12 gap-y-4 lg:gap-10 items-center py-6 lg:py-8 border-b border-black/5 hover:bg-white/60 transition-colors rounded-none px-4 -mx-4">
+                  <div className="edge-row group relative grid grid-cols-2 lg:grid-cols-12 gap-y-4 lg:gap-10 items-center py-8 lg:py-8 border-b border-black/5 hover:bg-white/60 transition-colors rounded-none px-4 -mx-4">
                      
                      {/* Metric & Icon */}
                      <div className="col-span-2 lg:col-span-6 flex items-center gap-4 lg:gap-8">
@@ -138,7 +138,7 @@ export default function SunfraaEdge() {
 
                      {/* Sunfraa Value (The Edge) */}
                      <div className="lg:col-span-3 flex flex-col justify-center">
-                        <span className="lg:hidden text-[9px] uppercase text-primary font-bold tracking-wider mb-2">Sunfraa Edge</span>
+                        <span className="lg:hidden text-[9px] uppercase text-primary font-black tracking-widest mb-2 px-3 py-1 bg-primary/5 border border-primary/20 self-end mr-1">Sunfraa Edge</span>
                         <div className="flex items-center gap-3">
                            <div className="w-1.5 h-1.5 rounded-none bg-primary hidden lg:block shrink-0" />
                            <p className="text-[13px] lg:text-[15px] font-black text-zinc-900 uppercase tracking-tight leading-tight">

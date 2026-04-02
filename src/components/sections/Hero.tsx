@@ -76,12 +76,14 @@ export default function Hero() {
     const sequence = { frame: 0 };
     const counts = { projects: 0, capacity: 0, years: 0 };
     
+    const isMobile = window.innerWidth < 1024;
+    
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
         start: 'top top',
-        end: '+=300%',
-        scrub: 1.2,
+        end: isMobile ? '+=120%' : '+=300%',
+        scrub: isMobile ? 0.6 : 1.2,
         pin: true,
       }
     });
@@ -108,13 +110,13 @@ export default function Hero() {
     tl.fromTo('.nav-visibility-wrapper', 
       { opacity: 0, y: -20, visibility: 'hidden' }, 
       { opacity: 1, y: 0, visibility: 'visible', duration: 0.2, ease: 'sine.inOut' }, 
-      0.7
+      isMobile ? 0.3 : 0.7
     );
 
     tl.fromTo('.hero-content', 
       { opacity: 0, y: 40 }, 
       { opacity: 1, y: 0, duration: 0.2, ease: 'sine.out' }, 
-      0.75
+      isMobile ? 0.35 : 0.75
     );
 
     // Stats Hero with counting animation
@@ -144,7 +146,7 @@ export default function Hero() {
           });
         }
       }, 
-      0.8
+      isMobile ? 0.4 : 0.8
     );
 
     return () => {
@@ -205,15 +207,15 @@ export default function Hero() {
           <div className="inline-flex items-center bg-white/10 backdrop-blur-md text-white border border-white/20 px-5 py-1.5 rounded-full s-label mb-6 !tracking-[0.2em] !text-[10px]">
             Engineering Sustainable Sovereignty
           </div>
-          <h1 className="s-h1 text-white mb-8 drop-shadow-2xl">
+          <h1 className="s-h1 !text-[clamp(2rem,8vw,5rem)] text-white mb-8 drop-shadow-2xl leading-[0.95]">
             Powering India's <br />
             <span className="liquid-gradient-orange py-1">Industrial</span> Future.
           </h1>
         </div>
 
         {/* Protruding Stats Overlay */}
-        <div className="hero-stats absolute bottom-24 right-16 hidden lg:flex items-center gap-6 opacity-0">
-          <div className="s-card p-8 shadow-2xl flex items-center gap-10 text-white !rounded-massive border-white/10">
+        <div className="hero-stats absolute bottom-6 lg:bottom-24 right-2 lg:right-16 flex items-center gap-6 opacity-0 scale-90 lg:scale-100 origin-right lg:translate-x-0 -translate-x-2 max-w-[98vw]">
+          <div className="s-card p-4 lg:p-8 shadow-2xl flex items-center gap-6 lg:gap-10 text-white !rounded- massive border-white/10 backdrop-blur-xl">
             <div className="flex flex-col">
               <div className="flex items-baseline">
                 <span id="stat-projects" className="text-4xl font-bold tracking-tight-editorial">0</span>

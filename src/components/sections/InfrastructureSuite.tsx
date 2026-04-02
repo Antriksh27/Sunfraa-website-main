@@ -82,7 +82,7 @@ export default function InfrastructureSuite() {
     <section 
       ref={containerRef}
       id="infrastructure" 
-      className="s-section s-section-full s-theme-black !p-0 h-screen overflow-hidden"
+      className="s-section s-theme-black !p-0 min-h-screen lg:h-screen lg:s-section-full overflow-hidden lg:overflow-hidden h-auto"
     >
       {/* Premium Texture Overlay */}
       <div className="absolute inset-0 opacity-[0.2] pointer-events-none mix-blend-overlay z-10 bg-[url('https://www.transparenttextures.com/patterns/p6.png')]" />
@@ -90,10 +90,10 @@ export default function InfrastructureSuite() {
       {/* Atmospheric Glow */}
       <div className="s-glow-primary top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 opacity-[0.06]" />
 
-      <div className="flex h-full w-full relative z-20">
+      <div className="flex flex-col lg:flex-row h-full w-full relative z-20">
         
         {/* LEFT: Technical Manifest (40%) */}
-        <div className="w-[40%] bg-black/40 border-r border-white/10 flex flex-col justify-around py-8 lg:py-16 px-12 lg:px-16 relative z-20 h-full overflow-hidden">
+        <div className="w-full lg:w-[40%] bg-black/40 border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col justify-around py-16 lg:py-16 px-6 lg:px-16 relative z-20 shrink-0">
            <div className="infra-entrance-el space-y-8 lg:space-y-10">
               <div className="flex items-center gap-3 s-label">
                  <Activity size={16} className="text-primary" />
@@ -146,7 +146,7 @@ export default function InfrastructureSuite() {
         </div>
 
         {/* RIGHT: Immersive Showcase (60%) */}
-        <div className="flex-1 relative overflow-hidden bg-[#0A0A0A] h-full flex flex-col justify-center">
+        <div className="w-full lg:flex-1 relative overflow-hidden bg-[#0A0A0A] aspect-[4/5] md:aspect-video lg:aspect-auto lg:h-full flex flex-col justify-center border-t border-white/5">
            
            {/* Cinematic Image Container */}
            <div className="absolute inset-0">

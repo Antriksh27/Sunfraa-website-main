@@ -80,7 +80,7 @@ export default function ROIPanel() {
     <section 
       ref={containerRef}
       id="roi" 
-      className="s-section s-section-full s-theme-white !p-0 flex items-center justify-center h-screen overflow-hidden"
+      className="s-section min-h-screen s-theme-white !p-0 flex items-center justify-center lg:h-screen overflow-hidden"
     >
       {/* Premium Texture Overlay */}
       <div className="absolute inset-0 opacity-[0.25] pointer-events-none mix-blend-multiply z-10 bg-[url('https://www.transparenttextures.com/patterns/p6.png')]" />
@@ -91,55 +91,56 @@ export default function ROIPanel() {
         <div className="roi-scan-line absolute top-[-10%] left-0 w-full h-[20vh] bg-gradient-to-b from-transparent via-primary/5 to-transparent blur-3xl opacity-30" />
       </div>
 
-      <div className="s-container relative z-20 w-full h-full flex flex-col justify-around py-8 lg:py-16">
+      <div className="s-container relative z-20 w-full h-full flex flex-col justify-around py-16 lg:py-16">
         
         {/* TOP: Header and Asset Legend */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12 lg:gap-0">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-10 lg:gap-0">
           <div className="bespoke-audit-el space-y-2 lg:w-1/2">
              <div className="flex items-center gap-3 s-label mb-2">
                 <Activity size={16} className="text-primary" />
                 Asset Performance Analysis
              </div>
-             <h2 className="s-h1 !text-zinc-900 !text-[clamp(2.5rem,6vw,4rem)] !leading-[0.8] !tracking-[calc(-0.06em)] uppercase">
+             <h2 className="s-h1 !text-zinc-900 !text-[clamp(2.5rem,8vw,4rem)] !leading-[0.85] !tracking-[calc(-0.06em)] uppercase">
                The Yield <br />
                <span className="text-primary font-light italic lowercase font-body tracking-tight">multiplier.</span>
              </h2>
           </div>
 
-          <div className="bespoke-audit-el lg:w-1/4 lg:border-l border-black/5 lg:pl-10 space-y-4 lg:mb-2">
+          <div className="bespoke-audit-el lg:w-1/4 lg:border-l border-black/5 lg:pl-10 space-y-4 lg:mb-2 flex flex-col justify-between lg:justify-start w-full border-t lg:border-t-0 pt-6 lg:pt-0">
              <div className="space-y-1">
-                <div className="s-label !text-zinc-600 !text-[9px]">Classification</div>
-                <div className="text-xs uppercase font-black tracking-tight text-zinc-900">Utility-Grade Infrastructure</div>
+                <div className="s-label !text-zinc-600 !text-[9px] lg:!text-[9px]">Classification</div>
+                <div className="text-[11px] lg:text-xs uppercase font-black tracking-tight text-zinc-900">Utility Infrastructure</div>
              </div>
-             <div className="space-y-1">
-                <div className="s-label !text-zinc-600 !text-[9px]">Recapture</div>
-                <div className="text-xs uppercase font-black tracking-tight text-primary italic flex items-center gap-2">
-                   Direct ROI <ArrowDown size={12} className="animate-bounce" />
+             <div className="space-y-1 pt-2 lg:pt-0">
+                <div className="s-label !text-zinc-600 !text-[9px] lg:!text-[9px]">Recapture</div>
+                <div className="text-[11px] lg:text-xs uppercase font-black tracking-tight text-primary italic flex items-center gap-2">
+                   ROI Payback <ArrowDown size={10} className="animate-bounce" />
                 </div>
              </div>
           </div>
         </div>
 
         {/* MIDDLE: Interactive Dial */}
-        <div className="bespoke-audit-el relative flex flex-col items-center justify-center py-4">
-           <div className="s-label !text-zinc-500 !text-[10px] uppercase tracking-[0.4em] mb-6">
+        <div className="bespoke-audit-el relative flex flex-col items-center justify-center py-8 lg:py-4">
+           <div className="s-label !text-zinc-500 !text-[9px] lg:!text-[10px] uppercase tracking-[0.4em] mb-8 lg:mb-6">
               Adjust Monthly Bill
            </div>
            
            <div className="relative w-full flex items-center justify-center">
               {/* Massive Backdrop Watermark Number */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-                 <span className="text-[25vw] font-black text-zinc-900 opacity-[0.06] tracking-tighter transition-all duration-700">
+                 <span className="text-[35vw] lg:text-[25vw] font-black text-zinc-900 opacity-[0.04] lg:opacity-[0.06] tracking-tighter transition-all duration-700">
                     {bill}
                  </span>
               </div>
               
               <div className="relative z-10 w-full max-w-4xl text-center space-y-[clamp(1rem,2vh,3rem)]">
-                 <div className="text-6xl lg:text-[10vw] font-mono font-black text-zinc-900 flex items-center justify-center tracking-tighter leading-none">
-                    <span className="text-primary/70 text-[0.4em] mr-4">₹</span>
+                 <div className="text-5xl lg:text-[10vw] font-mono font-black text-zinc-900 flex items-center justify-center tracking-tighter leading-none">
+                    <span className="text-primary/70 text-[0.4em] mr-2 lg:mr-4">₹</span>
                     <NumberTicker value={bill} />
                  </div>
-                                  <div className="px-4 lg:px-20 relative w-full">
+                 
+                 <div className="px-4 lg:px-20 relative w-full pt-4 lg:pt-0">
                     <input 
                        type="range" 
                        min="2000" 
@@ -149,7 +150,7 @@ export default function ROIPanel() {
                        onChange={(e) => setBill(Number(e.target.value))}
                        className="w-full h-1 bg-zinc-100 rounded-none appearance-none cursor-pointer accent-primary hover:accent-orange-500 transition-all"
                     />
-                    <div className="flex justify-between s-label !text-zinc-500 mt-6 !text-[10px]">
+                    <div className="flex justify-between s-label !text-zinc-500 mt-6 !text-[9px] lg:!text-[10px]">
                        <span>₹ 2K</span>
                        <span>₹ 100K+</span>
                     </div>
@@ -159,28 +160,28 @@ export default function ROIPanel() {
         </div>
 
         {/* BOTTOM: Results */}
-        <div className="bespoke-audit-el grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-14 border-t border-black/5 pt-10">
+        <div className="bespoke-audit-el grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10 lg:gap-14 border-t border-black/5 pt-12 lg:pt-10">
            
            {[
              { label: 'System Capacity', val: kwScale, Unit: 'kW', icon: Zap, detail: 'N-Type Modules' },
              { label: 'Annual Savings', val: annualSavings, Unit: '₹', icon: TrendingUp, detail: 'Inflation Shield' },
-             { label: 'Net Payback', val: payback, Unit: '', icon: Shield, detail: 'ROI Lock-in' },
+             { label: 'Net Payback', val: payback, Unit: '', icon: Shield, detail: 'ROI Payback' },
              { label: 'Carbon Avoided', val: carbonTons, Unit: 'Tons', icon: Leaf, detail: 'ESG Protocol' }
            ].map((item, i) => (
               <div key={item.label} className="group space-y-4">
                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-none bg-zinc-50 border border-black/5 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-500">
-                       <item.icon size={16} className="text-zinc-600 group-hover:text-white transition-colors" strokeWidth={1.5} />
+                    <div className="w-8 h-8 lg:w-9 lg:h-9 rounded-none bg-zinc-50 border border-black/5 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-500">
+                       <item.icon size={14} className="text-zinc-600 lg:size-[16px] group-hover:text-white transition-colors" strokeWidth={1.5} />
                     </div>
-                    <span className="s-label !text-zinc-700 group-hover:text-zinc-900 transition-colors uppercase !text-[10px] tracking-[0.2em]">{item.label}</span>
+                    <span className="s-label !text-zinc-700 group-hover:text-zinc-900 transition-colors uppercase !text-[9px] lg:!text-[10px] tracking-[0.2em]">{item.label}</span>
                  </div>
                  <div className="space-y-1">
-                    <div className="text-2xl lg:text-3xl font-headline font-black text-zinc-900 flex items-baseline gap-1 tracking-tighter">
+                    <div className="text-2xl lg:text-3xl font-headline font-black text-zinc-900 flex items-baseline gap-0.5 lg:gap-1 tracking-tighter">
                        {item.Unit === '₹' && <span className="text-[0.4em] text-primary/70">₹</span>}
                        {typeof item.val === 'number' ? <NumberTicker value={item.val} /> : item.val}
-                       <span className="text-[0.4em] font-headline text-zinc-600 ml-1">{item.Unit !== '₹' ? item.Unit : ''}</span>
+                       <span className="text-[0.4em] font-headline text-zinc-600 ml-0.5 lg:ml-1">{item.Unit !== '₹' ? item.Unit : ''}</span>
                     </div>
-                    <div className="s-body !text-zinc-500 !text-[10px] uppercase font-bold tracking-widest">{item.detail}</div>
+                    <div className="s-body !text-zinc-500 !text-[9px] lg:!text-[10px] uppercase font-bold tracking-widest">{item.detail}</div>
                  </div>
               </div>
            ))}
@@ -191,4 +192,3 @@ export default function ROIPanel() {
     </section>
   );
 }
-

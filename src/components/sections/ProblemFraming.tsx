@@ -93,7 +93,7 @@ export default function ProblemFraming() {
             <div className="lg:col-span-8 flex flex-col justify-between min-h-0">
                
                {/* Problem Cards - Tight Grid */}
-               <div className="grid grid-cols-2 gap-3 lg:gap-4 flex-1 min-h-0">
+               <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4 flex-1 min-h-0">
                  {problems.map((prob, i) => (
                     <div key={i} className="problem-card group relative overflow-hidden transition-all duration-500 hover:scale-[1.01]">
                        <div className="s-card h-full !bg-white !backdrop-blur-none !rounded-none !border-l-[3px] !border-l-zinc-200 !border-y-0 !border-r-0 !p-4 lg:!p-5 shadow-sm hover:shadow-2xl hover:shadow-black/5 transition-all duration-700 hover:!border-l-primary !border-black/[0.03] flex flex-col justify-between">
@@ -123,15 +123,15 @@ export default function ProblemFraming() {
                </div>
 
                {/* The Manifesto - Extremely Tight for Zenith */}
-               <div ref={contentRef} className="flex flex-col lg:flex-row items-center gap-4 lg:gap-8 pt-4 lg:pt-5 border-t border-black/[0.08] mt-4">
+               <div ref={contentRef} className="flex flex-col lg:flex-row items-center gap-6 lg:gap-8 pt-4 lg:pt-5 border-t border-black/[0.08] mt-6 lg:mt-4 text-center lg:text-left">
                    <div className="reveal-text flex-1">
-                      <p className="s-body !text-zinc-600 !text-[clamp(0.75rem,0.85vw,0.82rem)] leading-[1.6]">
+                      <p className="s-body !text-zinc-600 !text-[clamp(0.85rem,0.85vw,0.82rem)] leading-[1.6]">
                         With grid electricity prices in Gujarat surging by <span className="text-zinc-900 font-black underline decoration-primary/50 underline-offset-4 decoration-2">40% in a decade</span>, traditional energy isn&apos;t just a cost—it&apos;s a financial leak.
                       </p>
                    </div>
-
-                   <div className="reveal-text flex-1">
-                      <p className="s-body !text-zinc-900 !text-[clamp(0.75rem,0.85vw,0.82rem)] !font-black border-l-[3px] border-primary pl-6 py-2 bg-zinc-100/50 backdrop-blur-sm">
+ 
+                   <div className="reveal-text flex-1 w-full">
+                      <p className="s-body !text-zinc-900 !text-[clamp(0.85rem,0.85vw,0.82rem)] !font-black border-l-0 lg:border-l-[3px] border-primary pl-0 lg:pl-6 py-4 lg:py-2 bg-zinc-100/50 backdrop-blur-sm">
                         High-yield solar infrastructure that fixes your energy costs for 25+ years.
                       </p>
                    </div>

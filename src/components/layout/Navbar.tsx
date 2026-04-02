@@ -37,8 +37,8 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-full">
             
             {/* Logo */}
-            <Link href="/" className="group relative flex items-center">
-              <div className={`relative transition-all duration-700 ${scrolled ? 'h-[6.75rem] md:h-[8rem]' : 'h-[9.5rem] md:h-44'} ${!scrolled ? 'bg-white p-4 md:p-6 rounded-2xl shadow-[0_0_30px_rgba(255,255,255,0.1)] ring-1 ring-white/20' : ''} -ml-2 lg:-ml-6`}>
+            <Link href="/" className="group relative flex items-center shrink-0">
+              <div className={`relative transition-all duration-700 ${scrolled ? 'h-[4.5rem] md:h-[6rem]' : 'h-[6rem] md:h-28'} ${!scrolled ? 'bg-white p-3 md:p-6 rounded-2xl shadow-[0_0_30px_rgba(255,255,255,0.1)] ring-1 ring-white/20' : ''} -ml-2 lg:-ml-6`}>
                 <img 
                   src="/sunfraa-global-logo.png" 
                   alt="Sunfraa Global"
@@ -73,44 +73,57 @@ export default function Navbar() {
 
             {/* Mobile Trigger */}
             <button
-              className="lg:hidden text-on-background hover:text-primary transition-colors"
+              className="lg:hidden relative z-[120] p-2 -mr-2 text-on-background hover:text-primary transition-colors focus:outline-none"
               onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Toggle Menu"
+              aria-label={mobileOpen ? "Close Menu" : "Open Menu"}
             >
-              <Menu size={24} />
+              {mobileOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
           </div>
         </div>
       </nav>
 
-      {/* Mobile Overlay */}
+      {/* Mobile Overlay (Full Screen) */}
       <div
-        className={`fixed inset-0 z-[110] bg-background p-8 transition-transform duration-500 ease-in-out ${
-          mobileOpen ? 'translate-x-0' : 'translate-x-full'
+        className={`fixed inset-0 z-[115] bg-background/95 backdrop-blur-2xl transition-all duration-700 ease-io ${
+          mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
-        <div className="flex justify-between items-center mb-12">
-          <span className="text-[1.25rem] font-[700] tracking-[0.05em] font-headline">SUNFRAA GLOBAL</span>
-          <button onClick={() => setMobileOpen(false)} aria-label="Close Menu"><X size={24} /></button>
-        </div>
-        <div className="flex flex-col gap-8">
-          {NAV_LINKS.map(link => (
-            <Link
-              key={link.label}
-              href={link.href}
+        {/* Background Decorative Element */}
+        <div className="absolute top-0 right-0 w-[80vw] h-[80vw] bg-primary/5 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2" />
+        
+        <div className="flex flex-col h-full p-8 pt-32">
+          <div className="flex flex-col gap-6">
+            {NAV_LINKS.map((link, i) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                onClick={() => setMobileOpen(false)}
+                className={`text-[clamp(1.5rem,8vw,2.5rem)] font-headline font-black uppercase tracking-tighter text-on-background transition-all duration-500 hover:text-primary ${
+                  mobileOpen ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'
+                }`}
+                style={{ transitionDelay: `${i * 100}ms` }}
+              >
+                <span className="text-[0.4em] s-mono !text-primary/40 mr-4">0{i+1}</span>
+                {link.label}
+              </Link>
+            ))}
+          </div>
+
+          <div className={`mt-auto space-y-8 transition-all duration-700 delay-500 ${mobileOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+            <Link 
+              href="/contact" 
               onClick={() => setMobileOpen(false)}
-              className="text-2xl font-headline font-bold text-on-surface"
+              className="btn-primary w-full justify-center"
             >
-              {link.label}
+              Get a Quote
             </Link>
-          ))}
-          <Link 
-            href="/contact" 
-            onClick={() => setMobileOpen(false)}
-            className="btn-primary w-full justify-center mt-8"
-          >
-            Get a Quote
-          </Link>
+            
+            <div className="flex flex-col gap-2">
+              <span className="s-mono !text-[10px] !opacity-40">Direct Line</span>
+              <a href="tel:+91XXXXXXXXXX" className="text-xl font-headline font-bold text-on-background">+91 91122 34567</a>
+            </div>
+          </div>
         </div>
       </div>
     </>

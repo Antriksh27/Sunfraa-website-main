@@ -26,15 +26,6 @@ const eliteServices = [
     tag: 'Zero Capex',
   },
   {
-    title: 'Maintenance Services',
-    desc: 'Industrial-grade O&M lifecycle management. 24/7 technical shielding and robotic scaling.',
-    specs: ['Robotic Cleaning', '24/7 Monitoring', 'Annual Audit'],
-    icon: Cog,
-    image: 'https://images.unsplash.com/photo-1558449028-b53a39d100fc?q=80&w=1400&auto=format&fit=crop',
-    cols: 'lg:col-span-12 lg:row-span-1 xl:col-span-5',
-    tag: '99% Uptime',
-  },
-  {
     title: 'Industrial Solar',
     desc: 'Heavy-duty deployments for high-load manufacturing. Multi-megawatt engineering precision.',
     specs: ['Load Balancing', 'ASME Structural', 'HV-Sync'],
@@ -42,6 +33,15 @@ const eliteServices = [
     image: 'https://images.unsplash.com/photo-1542332213-9b5a5a3fad35?q=80&w=1400&auto=format&fit=crop',
     cols: 'lg:col-span-12 lg:row-span-1 xl:col-span-7',
     tag: '25Y Lifetime',
+  },
+  {
+    title: 'Maintenance Services',
+    desc: 'Industrial-grade O&M lifecycle management. 24/7 technical shielding and robotic scaling.',
+    specs: ['Robotic Cleaning', '24/7 Monitoring', 'Annual Audit'],
+    icon: Cog,
+    image: 'https://images.unsplash.com/photo-1558449028-b53a39d100fc?q=80&w=1400&auto=format&fit=crop',
+    cols: 'lg:col-span-12 lg:row-span-1 xl:col-span-5',
+    tag: '99% Uptime',
   },
 ];
 
@@ -72,7 +72,7 @@ export default function ServicesBento() {
     <section 
       ref={containerRef}
       id="services" 
-      className="s-section s-section-full s-theme-grey !p-0 flex items-center justify-center overflow-hidden"
+      className="s-section s-section-full s-theme-grey !p-0 flex items-center justify-center overflow-hidden min-h-screen lg:h-screen"
     >
       {/* Premium Texture Overlay */}
       <div className="absolute inset-0 opacity-[0.25] pointer-events-none mix-blend-multiply z-10 bg-[url('https://www.transparenttextures.com/patterns/p6.png')]" />
@@ -80,7 +80,7 @@ export default function ServicesBento() {
       {/* Atmospheric Glow */}
       <div className="s-glow-primary top-[10%] left-[10%] opacity-[0.03]" />
 
-      <div className="s-container relative z-20 w-full h-full flex flex-col justify-around py-4 lg:py-6">
+      <div className="s-container relative z-20 w-full h-full flex flex-col justify-around py-12 lg:py-6">
         {/* Elite Header Block */}
         <div className="text-center lg:text-left shrink-0">
            <div className="flex items-center justify-center lg:justify-start gap-4 s-label mb-1">
@@ -115,7 +115,7 @@ export default function ServicesBento() {
                  </div>
  
                  {/* Content Overlay */}
-                 <div className="relative z-10 p-4 lg:p-6 flex flex-col h-full justify-between transition-all duration-500 text-white">
+                 <div className="relative z-10 p-6 lg:p-6 flex flex-col justify-start lg:justify-between gap-12 lg:gap-0 transition-all duration-500 text-white min-h-[420px] lg:min-h-0">
                     
                     {/* Top Bar: ID and Technical Tag */}
                     <div className="flex justify-between items-start">
@@ -138,13 +138,13 @@ export default function ServicesBento() {
                          <p className="s-body !text-white/70 group-hover:!text-white !text-[12px] leading-snug max-w-[300px] transition-colors">
                             {service.desc}
                          </p>
-                                                  <div className="flex flex-wrap gap-1.5 opacity-40 group-hover:opacity-100 transition-all duration-700 delay-100">
-                              {service.specs.map(spec => (
-                                 <span key={spec} className="px-2 py-1 border border-white/20 s-mono !opacity-100 bg-white/5 !text-[9px] uppercase tracking-widest">
-                                    {spec}
-                                 </span>
-                              ))}
-                           </div>
+                         <div className="flex flex-wrap gap-1.5 opacity-60 lg:opacity-40 group-hover:opacity-100 transition-all duration-700 delay-100">
+                            {service.specs.map(spec => (
+                               <span key={spec} className="px-2 py-1 border border-white/20 s-mono !opacity-100 bg-white/5 !text-[8.5px] lg:!text-[9px] uppercase tracking-widest">
+                                  {spec}
+                               </span>
+                            ))}
+                         </div>
                       </div>
 
                         <div className="flex flex-col items-end gap-3 group-hover:translate-x-2 transition-transform duration-500">

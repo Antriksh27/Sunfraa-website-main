@@ -84,7 +84,7 @@ export default function ProcessJourney() {
     <section 
       ref={containerRef}
       id="process" 
-      className="s-section s-section-full s-theme-black !p-0 flex items-center justify-center h-screen overflow-hidden"
+      className="s-section s-theme-black !p-0 flex items-center justify-center min-h-screen lg:h-screen lg:s-section-full overflow-hidden lg:overflow-hidden h-auto"
     >
       {/* Atmospheric Scrolling Background Text */}
       <div className="absolute inset-0 z-0 flex items-center overflow-hidden pointer-events-none select-none">
@@ -109,7 +109,7 @@ export default function ProcessJourney() {
       {/* Atmospheric Glow */}
       <div className="s-glow-primary top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.04]" />
 
-      <div className="s-container relative z-20 w-full h-full flex flex-col justify-around py-8 lg:py-16">
+      <div className="s-container relative z-20 w-full h-auto lg:h-full flex flex-col justify-center lg:justify-around py-20 lg:py-16 gap-16 lg:gap-0">
         {/* Zenith Header Block */}
         <div className="text-center lg:text-left">
            <div className="flex items-center justify-center lg:justify-start gap-4 s-label mb-2">

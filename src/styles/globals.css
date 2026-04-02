@@ -64,8 +64,8 @@
   --text-mono:  clamp(0.5rem, 0.6vw, 0.625rem);
 
   /* ── Spacing Rhythm ────────────────────────────────── */
-  --section-py:   clamp(3rem, 8vh, 6rem);
-  --section-px:   clamp(1.5rem, 5vw, 4rem);
+  --section-py:   clamp(2.5rem, 8vh, 6rem);
+  --section-px:   clamp(1rem, 5vw, 2.5rem);
   --container-w:  1400px;
 
   /* ── shadcn-compatible tokens (HSL) ────────────────── */
@@ -161,7 +161,7 @@
 
 .s-section-full {
   min-height: 100vh;
-  @media (min-height: 800px) {
+  @media (min-height: 700px) {
     height: 100vh;
     max-height: 100vh;
   }
@@ -460,5 +460,37 @@ body[data-hero-active="true"][data-nav-visible="true"] .nav-visibility-wrapper {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+}
+
+/* ── MOBILE OVERRIDES & POLISH ────────────────────── */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+  }
+
+  .s-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    width: 100%;
+  }
+
+  .s-section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  /* Prevent text from becoming tiny or too large on very small screens */
+  :root {
+    --text-h1: clamp(2.2rem, 10vw, 3rem);
+    --text-h2: clamp(1.8rem, 8vw, 2.5rem);
+    --text-h3: clamp(1.4rem, 6vw, 1.8rem);
+  }
+  
+  /* Standardize card spacing */
+  .s-card {
+    padding: 1.5rem;
+  }
 }
 

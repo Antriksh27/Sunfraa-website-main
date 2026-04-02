@@ -19,7 +19,7 @@ export default function AuthoritySection() {
       ref={sectionRef}
       id="trust"
       aria-label="Industry certifications and compliance"
-      className="s-section s-section-full s-theme-white !p-0 flex items-center justify-center h-screen overflow-hidden"
+      className="s-section s-section-full s-theme-white !p-0 flex items-center justify-center min-h-screen lg:h-screen overflow-hidden"
     >
       {/* Premium Texture Overlay */}
       <div className="absolute inset-0 opacity-[0.25] pointer-events-none mix-blend-multiply z-10 bg-[url('https://www.transparenttextures.com/patterns/p6.png')]" />
@@ -36,9 +36,9 @@ export default function AuthoritySection() {
           </div>
  
           {/* Right Column: 3 over 2 Alignment (8/12) */}
-          <div className="lg:col-span-8 flex flex-col gap-y-4 lg:gap-y-6 lg:ml-auto">
+          <div className="lg:col-span-8 flex flex-col gap-y-6 lg:gap-y-6 lg:ml-auto w-full">
             {/* Top Row: 3 Boxes */}
-            <div className="flex flex-wrap justify-center lg:justify-end gap-2 lg:gap-6">
+            <div className="flex flex-col lg:flex-row flex-wrap justify-center lg:justify-end gap-4 lg:gap-6 items-center">
               {certifications.slice(0, 3).map((cert, i) => (
                 <CertificationCard
                   key={cert.id}
@@ -51,7 +51,7 @@ export default function AuthoritySection() {
             </div>
             
             {/* Bottom Row: 2 Boxes - Aligned Properly */}
-            <div className="flex flex-wrap justify-center lg:justify-end gap-2 lg:gap-6 lg:mr-24 translate-x-3 lg:translate-x-0">
+            <div className="flex flex-col lg:flex-row flex-wrap justify-center lg:justify-end gap-4 lg:gap-6 lg:mr-24 items-center">
                {certifications.slice(3, 5).map((cert, i) => (
                 <CertificationCard
                   key={cert.id}

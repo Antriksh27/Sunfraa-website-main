@@ -99,7 +99,7 @@ export default function TestimonialSection() {
     <section 
       ref={containerRef}
       id="testimonials" 
-      className="s-section s-section-full s-theme-white !p-0 h-screen overflow-hidden"
+      className="s-section s-section-full s-theme-white !p-0 min-h-screen lg:h-screen lg:overflow-hidden overflow-y-auto"
     >
       {/* Premium Texture Overlay */}
       <div className="absolute inset-0 opacity-[0.3] pointer-events-none mix-blend-multiply z-10 bg-[url('https://www.transparenttextures.com/patterns/p6.png')]" />
@@ -113,10 +113,10 @@ export default function TestimonialSection() {
         backgroundSize: '80px 80px' 
       }} />
 
-      <div className="flex h-full w-full relative z-20">
+      <div className="flex flex-col lg:flex-row h-full w-full relative z-20">
         
         {/* LEFT: Success Narrative (55%) */}
-        <div className="w-[55%] flex flex-col justify-center px-12 lg:px-24 relative z-20 h-full overflow-hidden bg-black/[0.01] border-r border-black/5">
+        <div className="w-full lg:w-[55%] flex flex-col justify-center px-8 lg:px-24 relative z-20 h-full py-16 lg:py-0 bg-black/[0.01] border-b lg:border-b-0 lg:border-r border-black/5">
            <div className="testi-entrance-el space-y-6 lg:space-y-10">
               
               <div className="flex items-center gap-4 s-label mb-1">
@@ -127,7 +127,7 @@ export default function TestimonialSection() {
               <div className="relative">
                  <Quote size={50} className="absolute -top-10 -left-10 text-primary opacity-[0.08] -z-10" />
                  <div className="space-y-6">
-                    <p className="testi-content s-h2 !text-[clamp(1.6rem,3.5vw,2.8rem)] italic !font-body !leading-[1.05] !text-zinc-900 !tracking-tight">
+                    <p className="testi-content s-h2 !text-[clamp(1.4rem,3vw,2.5rem)] italic !font-body !leading-[1.05] !text-zinc-900 !tracking-tight">
                        &ldquo;{testimonials[active].quote}&rdquo;
                     </p>
                     
@@ -179,8 +179,8 @@ export default function TestimonialSection() {
            </div>
         </div>
 
-          {/* RIGHT: Visual Evidence (45%) */}
-        <div className="flex-1 relative overflow-hidden bg-zinc-200 h-full">
+        {/* RIGHT: Visual Evidence (45%) */}
+        <div className="w-full lg:flex-1 relative overflow-hidden bg-zinc-200 h-[40vh] lg:h-full">
            
            {/* Cinematic Portrait Container */}
            <div className="absolute inset-0">

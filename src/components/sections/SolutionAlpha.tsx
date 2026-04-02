@@ -108,7 +108,7 @@ export default function SolutionAlpha() {
     <section 
       ref={containerRef}
       id="solution-alpha" 
-      className="s-section s-section-full s-theme-grey !p-0 flex items-center justify-center h-screen overflow-hidden"
+      className="s-section s-section-full s-theme-grey !p-0 flex items-center justify-center min-h-screen lg:h-screen overflow-hidden"
     >
       {/* Premium Texture Overlay */}
       <div className="absolute inset-0 opacity-[0.3] pointer-events-none mix-blend-multiply z-10 bg-[url('https://www.transparenttextures.com/patterns/p6.png')]" />
@@ -123,14 +123,14 @@ export default function SolutionAlpha() {
         </h1>
       </div>
 
-      <div className="s-container relative z-20 w-full h-full flex flex-col justify-around py-8 lg:py-12">
+      <div className="s-container relative z-20 w-full h-full flex flex-col justify-around py-16 lg:py-12">
         {/* Cinematic Header Block */}
         <div className="text-center lg:text-left">
            <div className="flex items-center justify-center lg:justify-start gap-4 s-label mb-2 !text-zinc-600 font-black">
              Industrial Infrastructure
              <span className="w-8 h-px bg-primary/50" />
            </div>
-           <h2 className="s-h2 !text-zinc-900 !text-[clamp(1.5rem,4vw,3.2rem)] !leading-[0.85] !tracking-tighter uppercase whitespace-nowrap font-black">
+           <h2 className="s-h2 !text-zinc-900 !text-[clamp(1.5rem,4vw,3.2rem)] !leading-[0.85] !tracking-tighter uppercase lg:whitespace-nowrap font-black">
               Ground Mount <br/>
               <span className="text-primary italic stroke-text-dark lowercase font-body font-light tracking-tight">Utility Solar.</span>
             </h2>
@@ -139,7 +139,7 @@ export default function SolutionAlpha() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
           
           {/* Left: Spec Column A */}
-          <div className="lg:col-span-3 space-y-8 lg:space-y-12 order-2 lg:order-1">
+          <div className="lg:col-span-3 space-y-6 lg:space-y-12 order-2 lg:order-1 flex flex-col items-center lg:items-start text-center lg:text-left">
             {alphaSpecs.slice(0, 2).map((spec, idx) => (
               <div key={idx} className="alpha-spec-hud group relative">
                 <div className="space-y-1">
@@ -150,7 +150,7 @@ export default function SolutionAlpha() {
                     {spec.value}
                   </h3>
                   <div className="w-8 h-0.5 bg-black/20 group-hover:bg-primary/60 transition-all mb-2" />
-                  <p className="s-body !text-zinc-600 !text-[11px] leading-relaxed max-w-[170px] font-black">
+                  <p className="s-body !text-zinc-600 !text-[11px] leading-relaxed max-w-[170px] font-black mx-auto lg:mx-0">
                     {spec.desc}
                   </p>
                 </div>
@@ -180,18 +180,18 @@ export default function SolutionAlpha() {
           </div>
 
           {/* Right: Spec Column B */}
-          <div className="lg:col-span-3 space-y-8 lg:space-y-12 order-3 text-right flex flex-col items-end">
+          <div className="lg:col-span-3 space-y-6 lg:space-y-12 order-3 flex flex-col items-center lg:items-end text-center lg:text-right">
             {alphaSpecs.slice(2, 4).map((spec, idx) => (
               <div key={idx} className="alpha-spec-hud group relative flex flex-col items-end">
                 <div className="space-y-1 text-right">
-                   <div className="s-label !text-zinc-500 group-hover:text-primary transition-colors text-right tracking-widest uppercase !text-[9.5px] font-black">
+                   <div className="s-label !text-zinc-500 group-hover:text-primary transition-colors tracking-widest uppercase !text-[9.5px] font-black text-center lg:text-right w-full">
                     {spec.title}
                   </div>
                   <h3 className="s-h3 !text-2xl lg:!text-3xl !text-zinc-900 group-hover:text-primary transition-colors !tracking-tighter font-black">
                     {spec.value}
                   </h3>
                   <div className="w-8 h-0.5 bg-black/20 group-hover:bg-primary/60 transition-all mb-2" />
-                  <p className="s-body !text-zinc-600 !text-[11px] leading-relaxed max-w-[170px] text-right font-black">
+                  <p className="s-body !text-zinc-600 !text-[11px] leading-relaxed max-w-[170px] text-center lg:text-right font-black mx-auto lg:mr-0">
                     {spec.desc}
                   </p>
                 </div>

@@ -83,7 +83,7 @@ export default function OutcomeShift() {
       {/* Dynamic Thermal Glow */}
       <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-[600px] h-[600px] bg-primary/[0.1] rounded-full blur-[140px] pointer-events-none z-0" />
 
-      <div className="s-container relative z-20 h-full flex flex-col justify-center">
+      <div className="s-container relative z-20 h-full flex flex-col justify-center py-12 lg:py-0">
         <div className="flex flex-col w-full max-h-[98vh] py-1">
             
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-stretch flex-1 min-h-0">
@@ -137,7 +137,7 @@ export default function OutcomeShift() {
                   </div>
 
                   <div className="space-y-2">
-                    <h2 className="s-h2 !text-white !text-[clamp(1.5rem,3.5vw,2.5rem)] !leading-[0.9] !tracking-tighter uppercase font-black">
+                    <h2 className="s-h2 !text-white !text-[clamp(1.5rem,3.5vw,2.5rem)] !leading-[0.9] !tracking-tighter uppercase font-black lg:whitespace-nowrap">
                       Solar shouldn&apos;t <br />
                       <span className="text-primary italic lowercase font-body font-light tracking-tight">be complicated.</span>
                     </h2>
@@ -165,9 +165,9 @@ export default function OutcomeShift() {
                   </div>
 
                   <div className="pt-2">
-                      <button className="s-btn s-btn-primary !w-full lg:!w-auto !px-10 !py-3 group !text-[10px] uppercase tracking-[0.2em] rounded-none">
+                      <button className="s-btn s-btn-primary !w-full lg:!w-auto !px-10 !py-5 lg:!py-3 group !text-[12px] lg:!text-[10px] uppercase tracking-[0.2em] rounded-none flex items-center justify-center bg-primary text-white border-none shadow-[0_10px_30px_rgba(234,126,38,0.3)]">
                           Check My Subsidy
-                          <BadgeCheck size={16} className="ml-3 transition-transform group-hover:scale-110" />
+                          <BadgeCheck size={18} className="ml-3 transition-transform group-hover:scale-110 shrink-0" />
                       </button>
                   </div>
 
