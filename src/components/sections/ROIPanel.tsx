@@ -1,86 +1,194 @@
 'use client';
 
-import React, { useState } from 'react';
-import FadeUp from '@/components/animations/FadeUp';
+import React, { useState, useEffect, useRef } from 'react';
+import { gsap } from '@/lib/gsap/gsap-config';
+import { useGSAP } from '@/lib/gsap/useGSAP';
+import { Zap, TrendingUp, Leaf, Shield, ArrowDown, Activity } from 'lucide-react';
+import { cn } from '@/lib/utils/cn';
+
+const NumberTicker = ({ value, prefix = "", suffix = "" }: { value: number | string, prefix?: string, suffix?: string }) => {
+  const elementRef = useRef<HTMLSpanElement>(null);
+  const prevValue = useRef(0);
+
+  useEffect(() => {
+    const targetValue = typeof value === 'string' ? parseFloat(value.replace(/,/g, '')) : value;
+    const obj = { val: prevValue.current };
+    
+    gsap.to(obj, {
+      val: targetValue,
+      duration: 0.8,
+      ease: "power3.out",
+      onUpdate: () => {
+        if (elementRef.current) {
+          elementRef.current.innerText = prefix + obj.val.toLocaleString('en-IN', {
+            minimumFractionDigits: typeof value === 'number' && value % 1 !== 0 ? 1 : 0,
+            maximumFractionDigits: typeof value === 'number' && value % 1 !== 0 ? 1 : 0,
+          }) + suffix;
+        }
+      }
+    });
+
+    prevValue.current = targetValue;
+  }, [value, prefix, suffix]);
+
+  return <span ref={elementRef} className="font-mono !opacity-100 tabular-nums">{prefix}{value}{suffix}</span>;
+};
 
 export default function ROIPanel() {
-  const [bill, setBill] = useState(5000);
+  const [mounted, setMounted] = useState(false);
+  const [bill, setBill] = useState(12500);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const estimatedSystem = (bill / 1000).toFixed(1); // Roughly 1kW per 1000 INR bill
-  const savingsAnnum = (bill * 12).toLocaleString('en-IN');
-  const payback = "3.5 Years";
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const kwScale = (bill / 920).toFixed(1);
+  const annualSavings = Math.round(bill * 11.4);
+  const carbonTons = (parseFloat(kwScale) * 1.3).toFixed(1);
+  const payback = bill > 18000 ? "2.6Y" : "3.2Y";
+
+  useGSAP(() => {
+    if (!mounted || !containerRef.current) return;
+
+    // Background Scan-line Loop
+    gsap.to('.roi-scan-line', {
+      top: '100%',
+      duration: 8,
+      repeat: -1,
+      ease: 'none',
+    });
+
+    // Content Entrance
+    gsap.fromTo('.bespoke-audit-el', 
+      { opacity: 0, x: -50 }, 
+      { 
+        opacity: 1, 
+        x: 0, 
+        duration: 1.2, 
+        stagger: 0.15, 
+        ease: 'expo.out',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 70%',
+        }
+      }
+    );
+  }, { scope: containerRef, dependencies: [mounted] });
 
   return (
-    <section id="roi" className="min-h-[100dvh] lg:h-screen flex flex-col justify-center py-8 lg:py-0 bg-soft-container relative overflow-hidden">
-      <div className="s-container max-w-[1400px]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
-          
-          <div className="lg:col-span-6">
-            <FadeUp delay={0.1}>
-              <div className="inline-flex items-center text-primary font-bold text-[10px] tracking-[0.2em] uppercase mb-4">
-                <span className="w-8 h-px bg-primary mr-4"></span>
-                Financial Engineering
-              </div>
-              <h2 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-bold text-black leading-[1.05] tracking-tight-editorial mb-4">
-                Calculate Your <br />
-                <span className="text-gray-400">Independence.</span>
-              </h2>
-              <p className="text-sm lg:text-base text-gray-500 font-light leading-relaxed max-w-xl">
-                Enter your average monthly electricity bill below to see the exact system size you need, and how quickly your investment will pay for itself.
-              </p>
-            </FadeUp>
-          </div>
+    <section 
+      ref={containerRef}
+      id="roi" 
+      className="s-section s-section-full s-theme-white !p-0 flex items-center justify-center h-screen overflow-hidden"
+    >
+      {/* Premium Texture Overlay */}
+      <div className="absolute inset-0 opacity-[0.25] pointer-events-none mix-blend-multiply z-10 bg-[url('https://www.transparenttextures.com/patterns/p6.png')]" />
 
-          <div className="lg:col-span-6">
-            <FadeUp delay={0.2}>
-              <div className="bg-white rounded-massive p-6 lg:p-8 border border-black/5 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] relative overflow-hidden">
-                
-                <div className="mb-6">
-                  <div className="flex justify-between items-end mb-3">
-                    <label className="text-[10px] lg:text-xs font-semibold uppercase tracking-widest text-gray-400 block">Average Monthly Bill</label>
-                    <span className="text-xl lg:text-2xl font-bold text-black tracking-tight-editorial">₹{bill.toLocaleString('en-IN')}</span>
-                  </div>
-                  <input 
-                    type="range" 
-                    min="1000" 
-                    max="50000" 
-                    step="500" 
-                    value={bill} 
-                    onChange={(e) => setBill(Number(e.target.value))}
-                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
-                  />
-                  <div className="flex justify-between text-[10px] text-gray-400 mt-2 font-medium">
-                    <span>₹1,000</span>
-                    <span>₹50,000+</span>
-                  </div>
-                </div>
-
-                <div className="bg-white rounded-[1.5rem] p-4 lg:p-6 border border-gray-100 shadow-sm space-y-3 lg:space-y-4">
-                  <div className="flex justify-between items-center border-b border-gray-100 pb-3 lg:pb-4">
-                    <span className="text-[10px] lg:text-xs font-semibold text-gray-500 uppercase tracking-widest">Est. System Size</span>
-                    <span className="text-lg lg:text-xl font-bold text-black">{estimatedSystem} kW</span>
-                  </div>
-                  <div className="flex justify-between items-center border-b border-gray-100 pb-3 lg:pb-4">
-                    <span className="text-[10px] lg:text-xs font-semibold text-gray-500 uppercase tracking-widest">Annual Savings</span>
-                    <span className="text-lg lg:text-xl font-bold text-primary">₹{savingsAnnum}</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-[10px] lg:text-xs font-semibold text-gray-500 uppercase tracking-widest">Payback Period</span>
-                    <span className="text-lg lg:text-xl font-bold text-black">{payback}</span>
-                  </div>
-                </div>
-
-                <div className="mt-6">
-                  <button className="w-full liquid-gradient-orange text-white py-3 rounded-full font-bold tracking-widest uppercase text-[10px] lg:text-xs shadow-xl shadow-orange-500/20 hover:-translate-y-1 transition-transform">
-                    Request Formal Quote
-                  </button>
-                </div>
-              </div>
-            </FadeUp>
-          </div>
-
-        </div>
+      {/* 1. Immersive Grid Mesh & Scan-line */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-[0.4]">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:4vw_4vw]" />
+        <div className="roi-scan-line absolute top-[-10%] left-0 w-full h-[20vh] bg-gradient-to-b from-transparent via-primary/5 to-transparent blur-3xl opacity-30" />
       </div>
+
+      <div className="s-container relative z-20 w-full h-full flex flex-col justify-around py-8 lg:py-16">
+        
+        {/* TOP: Header and Asset Legend */}
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12 lg:gap-0">
+          <div className="bespoke-audit-el space-y-2 lg:w-1/2">
+             <div className="flex items-center gap-3 s-label mb-2">
+                <Activity size={16} className="text-primary" />
+                Asset Performance Analysis
+             </div>
+             <h2 className="s-h1 !text-zinc-900 !text-[clamp(2.5rem,6vw,4rem)] !leading-[0.8] !tracking-[calc(-0.06em)] uppercase">
+               The Yield <br />
+               <span className="text-primary font-light italic lowercase font-body tracking-tight">multiplier.</span>
+             </h2>
+          </div>
+
+          <div className="bespoke-audit-el lg:w-1/4 lg:border-l border-black/5 lg:pl-10 space-y-4 lg:mb-2">
+             <div className="space-y-1">
+                <div className="s-label !text-zinc-600 !text-[9px]">Classification</div>
+                <div className="text-xs uppercase font-black tracking-tight text-zinc-900">Utility-Grade Infrastructure</div>
+             </div>
+             <div className="space-y-1">
+                <div className="s-label !text-zinc-600 !text-[9px]">Recapture</div>
+                <div className="text-xs uppercase font-black tracking-tight text-primary italic flex items-center gap-2">
+                   Direct ROI <ArrowDown size={12} className="animate-bounce" />
+                </div>
+             </div>
+          </div>
+        </div>
+
+        {/* MIDDLE: Interactive Dial */}
+        <div className="bespoke-audit-el relative flex flex-col items-center justify-center py-4">
+           <div className="s-label !text-zinc-500 !text-[10px] uppercase tracking-[0.4em] mb-6">
+              Adjust Monthly Bill
+           </div>
+           
+           <div className="relative w-full flex items-center justify-center">
+              {/* Massive Backdrop Watermark Number */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+                 <span className="text-[25vw] font-black text-zinc-900 opacity-[0.06] tracking-tighter transition-all duration-700">
+                    {bill}
+                 </span>
+              </div>
+              
+              <div className="relative z-10 w-full max-w-4xl text-center space-y-[clamp(1rem,2vh,3rem)]">
+                 <div className="text-6xl lg:text-[10vw] font-mono font-black text-zinc-900 flex items-center justify-center tracking-tighter leading-none">
+                    <span className="text-primary/70 text-[0.4em] mr-4">₹</span>
+                    <NumberTicker value={bill} />
+                 </div>
+                                  <div className="px-4 lg:px-20 relative w-full">
+                    <input 
+                       type="range" 
+                       min="2000" 
+                       max="100000" 
+                       step="500" 
+                       value={bill} 
+                       onChange={(e) => setBill(Number(e.target.value))}
+                       className="w-full h-1 bg-zinc-100 rounded-none appearance-none cursor-pointer accent-primary hover:accent-orange-500 transition-all"
+                    />
+                    <div className="flex justify-between s-label !text-zinc-500 mt-6 !text-[10px]">
+                       <span>₹ 2K</span>
+                       <span>₹ 100K+</span>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+
+        {/* BOTTOM: Results */}
+        <div className="bespoke-audit-el grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-14 border-t border-black/5 pt-10">
+           
+           {[
+             { label: 'System Capacity', val: kwScale, Unit: 'kW', icon: Zap, detail: 'N-Type Modules' },
+             { label: 'Annual Savings', val: annualSavings, Unit: '₹', icon: TrendingUp, detail: 'Inflation Shield' },
+             { label: 'Net Payback', val: payback, Unit: '', icon: Shield, detail: 'ROI Lock-in' },
+             { label: 'Carbon Avoided', val: carbonTons, Unit: 'Tons', icon: Leaf, detail: 'ESG Protocol' }
+           ].map((item, i) => (
+              <div key={item.label} className="group space-y-4">
+                 <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-none bg-zinc-50 border border-black/5 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-500">
+                       <item.icon size={16} className="text-zinc-600 group-hover:text-white transition-colors" strokeWidth={1.5} />
+                    </div>
+                    <span className="s-label !text-zinc-700 group-hover:text-zinc-900 transition-colors uppercase !text-[10px] tracking-[0.2em]">{item.label}</span>
+                 </div>
+                 <div className="space-y-1">
+                    <div className="text-2xl lg:text-3xl font-headline font-black text-zinc-900 flex items-baseline gap-1 tracking-tighter">
+                       {item.Unit === '₹' && <span className="text-[0.4em] text-primary/70">₹</span>}
+                       {typeof item.val === 'number' ? <NumberTicker value={item.val} /> : item.val}
+                       <span className="text-[0.4em] font-headline text-zinc-600 ml-1">{item.Unit !== '₹' ? item.Unit : ''}</span>
+                    </div>
+                    <div className="s-body !text-zinc-500 !text-[10px] uppercase font-bold tracking-widest">{item.detail}</div>
+                 </div>
+              </div>
+           ))}
+        </div>
+
+      </div>
+
     </section>
   );
 }
+

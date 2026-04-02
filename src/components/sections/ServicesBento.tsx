@@ -1,107 +1,165 @@
 'use client';
 
-import React from 'react';
-import FadeUp from '@/components/animations/FadeUp';
+import React, { useRef } from 'react';
+import { gsap } from '@/lib/gsap/gsap-config';
+import { useGSAP } from '@/lib/gsap/useGSAP';
+import { Home, ClipboardCheck, Factory, Cog, ArrowUpRight } from 'lucide-react';
+import { cn } from '@/lib/utils/cn';
+
+const eliteServices = [
+  {
+    title: 'Residential Solar',
+    desc: 'Bespoke rooftop ecosystems for modern estates. Zero-bill autonomy with seamless compliance.',
+    specs: ['Subsidy-Ready', 'ALMM-Certified', 'Cyclone-Rated'],
+    icon: Home,
+    image: 'https://images.unsplash.com/photo-1613665813446-82a78c468a1d?q=80&w=1400&auto=format&fit=crop',
+    cols: 'lg:col-span-7',
+    tag: 'Strategic ROI',
+  },
+  {
+    title: 'Commercial Solar',
+    desc: 'High-yield energy infrastructure. Designed for maximum tax depreciation & ESG targets.',
+    specs: ['Tier-1 Modules', 'Net-Metering', '0% Financing'],
+    icon: ClipboardCheck,
+    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1400&auto=format&fit=crop',
+    cols: 'lg:col-span-5',
+    tag: 'Zero Capex',
+  },
+  {
+    title: 'Maintenance Services',
+    desc: 'Industrial-grade O&M lifecycle management. 24/7 technical shielding and robotic scaling.',
+    specs: ['Robotic Cleaning', '24/7 Monitoring', 'Annual Audit'],
+    icon: Cog,
+    image: 'https://images.unsplash.com/photo-1558449028-b53a39d100fc?q=80&w=1400&auto=format&fit=crop',
+    cols: 'lg:col-span-12 lg:row-span-1 xl:col-span-5',
+    tag: '99% Uptime',
+  },
+  {
+    title: 'Industrial Solar',
+    desc: 'Heavy-duty deployments for high-load manufacturing. Multi-megawatt engineering precision.',
+    specs: ['Load Balancing', 'ASME Structural', 'HV-Sync'],
+    icon: Factory,
+    image: 'https://images.unsplash.com/photo-1542332213-9b5a5a3fad35?q=80&w=1400&auto=format&fit=crop',
+    cols: 'lg:col-span-12 lg:row-span-1 xl:col-span-7',
+    tag: '25Y Lifetime',
+  },
+];
 
 export default function ServicesBento() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    if (!containerRef.current) return;
+
+    gsap.fromTo('.elite-bento-tile', 
+      { opacity: 0, y: 40, scale: 0.98 }, 
+      { 
+        opacity: 1, 
+        y: 0, 
+        scale: 1,
+        duration: 0.8, 
+        stagger: 0.1, 
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 75%',
+        }
+      }
+    );
+  }, { scope: containerRef });
+
   return (
-    <section id="services" className="min-h-[100dvh] lg:h-screen flex flex-col justify-center py-8 lg:py-0 bg-dark-container overflow-hidden relative">
-      <div className="s-container max-w-[1400px]">
-        
-        {/* Section Header */}
-        <div className="max-w-4xl mb-6 lg:mb-8">
-          <FadeUp delay={0.1}>
-            <div className="inline-flex items-center text-primary font-bold text-[10px] tracking-[0.2em] uppercase mb-3 lg:mb-4">
-              <span className="w-8 h-px bg-primary mr-4"></span>
-              Tailored Energy Scale
-            </div>
-          </FadeUp>
-          <FadeUp delay={0.2}>
-            <h2 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-bold text-white leading-[1.05] tracking-tight-editorial">
-              Powering Everything from <br />
-              <span className="text-gray-500">Villas to Factories.</span>
+    <section 
+      ref={containerRef}
+      id="services" 
+      className="s-section s-section-full s-theme-grey !p-0 flex items-center justify-center overflow-hidden"
+    >
+      {/* Premium Texture Overlay */}
+      <div className="absolute inset-0 opacity-[0.25] pointer-events-none mix-blend-multiply z-10 bg-[url('https://www.transparenttextures.com/patterns/p6.png')]" />
+
+      {/* Atmospheric Glow */}
+      <div className="s-glow-primary top-[10%] left-[10%] opacity-[0.03]" />
+
+      <div className="s-container relative z-20 w-full h-full flex flex-col justify-around py-4 lg:py-6">
+        {/* Elite Header Block */}
+        <div className="text-center lg:text-left shrink-0">
+           <div className="flex items-center justify-center lg:justify-start gap-4 s-label mb-1">
+             Integrated Capabilities
+             <span className="w-10 h-px bg-primary/30" />
+           </div>
+            <h2 className="s-h1 !text-zinc-900 !text-[clamp(1.5rem,3.5vw,2.5rem)] !leading-none !tracking-[calc(-0.06em)] uppercase pb-2">
+              Service <br/>
+              <span className="text-primary italic lowercase font-body font-light tracking-tight normal-case">ecosystem.</span>
             </h2>
-          </FadeUp>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:auto-rows-[250px]">
-          
-          {/* Card 1: Residential */}
-          <FadeUp delay={0.1} className="lg:col-span-8 lg:row-span-1">
-            <div className="h-full bg-[#262A2E] rounded-massive p-6 lg:p-8 relative overflow-hidden group border border-white/5 shadow-2xl">
-               <div className="max-w-lg relative z-10 flex flex-col h-full justify-center">
-                 <h3 className="text-2xl lg:text-3xl font-bold text-white mb-2 tracking-tight-editorial group-hover:text-primary transition-colors">
-                   Residential <br/> <span className="font-light text-gray-500">Rooftop Solar</span>
-                 </h3>
-                 <p className="text-sm text-gray-400 leading-relaxed font-light">
-                   Eliminate your home's electricity bill completely with our sleek, high-efficiency solar integration. Subsidies included.
-                 </p>
-               </div>
-               
-                <img 
-                   src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?q=80&w=2000&auto=format&fit=crop" 
-                   className="absolute right-0 top-0 w-1/2 h-full object-cover rounded-l-[4rem] group-hover:scale-105 transition-transform duration-1000 hidden md:block" 
-                   alt="Residential Solar" 
-                />
-            </div>
-          </FadeUp>
-
-          {/* Card 2: Micro-grid (Small Card) */}
-          <FadeUp delay={0.2} className="lg:col-span-4 lg:row-span-1">
-            <div className="h-full bg-black/20 rounded-massive p-6 lg:p-8 relative overflow-hidden group border border-white/5 shadow-2xl">
-               <div className="relative z-10 flex flex-col h-full justify-between">
-                 <span className="w-10 h-10 lg:w-12 lg:h-12 bg-[#262A2E] rounded-full flex items-center justify-center shadow-inner mb-3 border border-white/10 group-hover:border-primary transition-colors">
-                    <svg className="w-5 h-5 lg:w-6 lg:h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                 </span>
-                 <div>
-                    <h3 className="text-lg lg:text-xl font-bold text-white mb-1 tracking-tight-editorial transition-colors group-hover:text-primary">Zero Downtime</h3>
-                    <p className="text-xs text-gray-400 leading-relaxed font-light">
-                      Beat grid outages with hybrid systems and advanced lithium-ion storage loops.
-                    </p>
+        {/* Dynamic Asymmetric Bento Grid - Optimized for 100vh */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 lg:grid-rows-2 gap-3 flex-1 min-h-0">
+          {eliteServices.map((service, idx) => (
+                 <div 
+                key={idx} 
+                className={cn(
+                  "elite-bento-tile group relative rounded-none overflow-hidden transition-all duration-700 bg-zinc-900 border border-white/5 flex flex-col hover:shadow-[0_40px_100px_rgba(0,0,0,0.3)] cursor-pointer",
+                  service.cols
+                )}
+              >
+                 {/* Immersive Background Reveal Layer */}
+                 <div className="absolute inset-0 z-0 overflow-hidden">
+                   <img 
+                     src={service.image} 
+                     alt={service.title} 
+                     className="w-full h-full object-cover opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000 grayscale-[60%] group-hover:grayscale-0"
+                   />
+                   {/* Dark overlay that lifts on hover */}
+                   <div className="absolute inset-0 bg-zinc-950/60 group-hover:bg-zinc-950/10 transition-colors duration-700" />
                  </div>
-               </div>
-            </div>
-          </FadeUp>
+ 
+                 {/* Content Overlay */}
+                 <div className="relative z-10 p-4 lg:p-6 flex flex-col h-full justify-between transition-all duration-500 text-white">
+                    
+                    {/* Top Bar: ID and Technical Tag */}
+                    <div className="flex justify-between items-start">
+                        <div className="space-y-1">
+                           <h3 className="text-xl lg:text-2xl font-headline font-black tracking-tighter uppercase leading-none mt-2 transition-transform group-hover:translate-x-1">
+                              {service.title}
+                           </h3>
+                        </div>
+                                            <div className="flex flex-col items-end gap-3 text-right">
+                           <div className="px-3 py-1 bg-white/10 text-white s-mono !text-[10px] !opacity-100 group-hover:bg-primary group-hover:text-white transition-colors border border-white/10">
+                              {service.tag}
+                           </div>
+                          <service.icon className="w-5 h-5 opacity-60 group-hover:opacity-100 group-hover:text-primary transition-all text-white" strokeWidth={1.5} />
+                       </div>
+                   </div>
 
-          {/* Card 3: Finance (Small Card) */}
-          <FadeUp delay={0.3} className="lg:col-span-4 lg:row-span-1">
-            <div className="h-full liquid-gradient-orange rounded-massive p-6 lg:p-8 relative overflow-hidden group shadow-xl shadow-orange-500/20">
-               <div className="relative z-10 flex flex-col h-full justify-between">
-                 <h3 className="text-2xl font-bold text-white mb-3 tracking-tight-editorial leading-tight">
-                    Seamless <br/> Financing
-                 </h3>
-                 <p className="text-xs text-white/90 leading-relaxed font-medium">
-                   Partnered with leading Indian banks for 0% EMI and collateral-free solar loans.
-                 </p>
-               </div>
-               {/* Decorative Circle */}
-               <div className="absolute right-[-20%] bottom-[-20%] w-48 h-48 border-[20px] border-white/10 rounded-full" />
-            </div>
-          </FadeUp>
+                   {/* Bottom Bar: Specs Reveal & CTA */}
+                   <div className="flex items-end justify-between gap-8">
+                      <div className="space-y-3">
+                         <p className="s-body !text-white/70 group-hover:!text-white !text-[12px] leading-snug max-w-[300px] transition-colors">
+                            {service.desc}
+                         </p>
+                                                  <div className="flex flex-wrap gap-1.5 opacity-40 group-hover:opacity-100 transition-all duration-700 delay-100">
+                              {service.specs.map(spec => (
+                                 <span key={spec} className="px-2 py-1 border border-white/20 s-mono !opacity-100 bg-white/5 !text-[9px] uppercase tracking-widest">
+                                    {spec}
+                                 </span>
+                              ))}
+                           </div>
+                      </div>
 
-          {/* Card 4: Commercial */}
-          <FadeUp delay={0.4} className="lg:col-span-8 lg:row-span-1">
-            <div className="h-full bg-[#262A2E] rounded-massive p-6 lg:p-10 relative overflow-hidden group border border-white/5 shadow-2xl">
-               <div className="max-w-lg relative z-10 flex flex-col h-full justify-center">
-                 <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4 tracking-tight-editorial group-hover:text-primary transition-colors">
-                   Commercial <br/> <span className="font-light text-gray-500">& Industrial Solar</span>
-                 </h3>
-                 <p className="text-sm text-gray-400 leading-relaxed font-light">
-                   Scale your operations and unlock tax depreciation benefits. Megawatt scale installations deployed with minimal disruption.
-                 </p>
-               </div>
+                        <div className="flex flex-col items-end gap-3 group-hover:translate-x-2 transition-transform duration-500">
+                           <div className="w-8 h-8 border border-white/20 flex items-center justify-center group-hover:border-primary group-hover:bg-primary transition-all">
+                              <ArrowUpRight size={16} className="text-white/60 group-hover:text-white transition-colors" />
+                           </div>
+                        </div>
+                   </div>
+                </div>
 
-               <img 
-                  src="https://images.unsplash.com/photo-1566094758224-aac44dc21c2a?q=80&w=2000&auto=format&fit=crop" 
-                  className="absolute right-0 top-0 w-1/2 h-full object-cover rounded-l-[4rem] group-hover:scale-105 transition-transform duration-1000 hidden md:block" 
-                  alt="Commercial Solar" 
-               />
-            </div>
-          </FadeUp>
-
+                <div className="absolute top-10 right-0 w-px h-20 bg-gradient-to-b from-primary/0 via-primary/20 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity" />
+             </div>
+           ))}
         </div>
+
       </div>
     </section>
   );

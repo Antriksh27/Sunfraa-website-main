@@ -89,39 +89,47 @@ export default function GlobalPortfolio() {
   return (
     <section
       id="portfolio"
-      className="min-h-[100dvh] lg:h-screen flex flex-col justify-center py-8 lg:py-0 bg-soft-container relative overflow-hidden"
+      className="s-section s-section-full s-theme-white !p-0 flex items-center justify-center h-screen overflow-hidden"
     >
-      <div className="s-container max-w-[1400px]">
+      {/* Premium Texture Overlay */}
+      <div className="absolute inset-0 opacity-[0.25] pointer-events-none mix-blend-multiply z-10 bg-[url('https://www.transparenttextures.com/patterns/p6.png')]" />
 
+      {/* Atmospheric Glow */}
+      <div className="s-glow-primary top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 opacity-[0.06]" />
+
+      <div className="s-container max-w-[1400px] w-full h-full flex flex-col justify-around py-6 lg:py-10 relative z-20">
+ 
         {/* ── Header Row ─────────────────────────────── */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-4 lg:mb-6 gap-4">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-4">
           <FadeUp delay={0.1} className="max-w-3xl">
-            <div className="inline-flex items-center text-primary font-bold text-[10px] tracking-[0.2em] uppercase mb-3 lg:mb-4">
-              <span className="w-8 h-px bg-primary mr-4" />
-              Our Work
+            <div className="flex items-center s-label mb-2 !text-zinc-600 font-black">
+              <span className="w-8 h-px bg-primary/50 mr-4" />
+              Global Impact
             </div>
-            <h2 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-bold text-black leading-[1.05] tracking-tight-editorial">
-              Proven <br />
-              <span className="text-gray-400 font-light">Deployments.</span>
+            <h2 className="s-h1 !text-zinc-900 !text-[clamp(2rem,5vw,3.5rem)] !leading-[0.9] !tracking-tighter uppercase font-black">
+              Our <br />
+              <span className="text-primary italic lowercase font-body font-light tracking-tight">Deployments.</span>
             </h2>
           </FadeUp>
 
-          {/* Navigation Arrows (Testimonial-style) */}
+          {/* Navigation Arrows (Industrial HUD) */}
           <FadeUp delay={0.2}>
-            <div className="flex items-center gap-3">
-              <button
+            <div className="flex items-center gap-px">
+               <button
                 onClick={() => carouselApi?.scrollPrev()}
                 disabled={!canScrollPrev}
-                className="w-10 h-10 rounded-full bg-white border border-gray-200 text-black flex items-center justify-center hover:bg-gray-50 transition-colors shadow-[0_5px_15px_rgba(0,0,0,0.05)] disabled:opacity-30"
+                className="w-16 h-16 bg-white border border-black/10 text-zinc-900 flex items-center justify-center hover:bg-zinc-100 transition-all active:scale-95 disabled:opacity-30 cursor-pointer shadow-sm"
+                aria-label="Previous Project"
               >
-                <ArrowLeft className="w-5 h-5" />
+                <ArrowLeft className="w-6 h-6 stroke-[2]" />
               </button>
               <button
                 onClick={() => carouselApi?.scrollNext()}
                 disabled={!canScrollNext}
-                className="w-10 h-10 rounded-full liquid-gradient-orange text-white flex items-center justify-center hover:scale-105 transition-transform shadow-xl shadow-orange-500/30 disabled:opacity-30"
+                className="w-16 h-16 bg-primary text-white flex items-center justify-center hover:bg-primary/90 transition-all active:scale-95 disabled:opacity-30 cursor-pointer shadow-[0_10px_40px_rgba(234,126,38,0.2)] border border-primary/20"
+                aria-label="Next Project"
               >
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-6 h-6 stroke-[2]" />
               </button>
             </div>
           </FadeUp>
@@ -135,52 +143,53 @@ export default function GlobalPortfolio() {
               align: 'start',
               dragFree: true,
             }}
+            className="w-full"
           >
-            <CarouselContent className="-ml-4 lg:-ml-6">
+            <CarouselContent className="-ml-6 lg:-ml-10">
               {portfolioItems.map((project) => (
                 <CarouselItem
                   key={project.id}
-                  className="pl-4 lg:pl-6 basis-[85%] sm:basis-[60%] md:basis-[45%] lg:basis-[40%]"
+                  className="pl-6 lg:pl-10 basis-[85%] sm:basis-[60%] md:basis-[45%] lg:basis-[40%]"
                 >
-                  <div className="group relative aspect-[3/2] rounded-massive overflow-hidden bg-black/20 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.08)] border border-black/5 cursor-pointer">
+                  <div className="group relative aspect-[4/3] rounded-none overflow-hidden bg-zinc-200 shadow-[0_45px_110px_-25px_rgba(0,0,0,0.15)] border border-black/10 cursor-pointer">
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 grayscale-[0.4] group-hover:grayscale-0 brightness-[0.85] group-hover:brightness-100"
                     />
-
+ 
                     {/* Dark gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/[0.95] via-black/[0.4] to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-700" />
 
                     {/* Content */}
-                    <div className="absolute inset-0 p-6 lg:p-8 flex flex-col justify-end">
-                      <div className="mb-2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-700">
-                        <span className="text-[0.6rem] font-semibold uppercase tracking-widest text-primary mb-1 block">
-                          {project.type}
-                        </span>
-                        <h3 className="text-xl lg:text-2xl font-bold text-white tracking-tight-editorial">
-                          {project.title}
-                        </h3>
-                      </div>
-
-                      {/* Stats row — reveal on hover */}
-                      <div className="grid grid-cols-2 gap-4 pt-3 lg:pt-4 border-t border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-700 delay-100">
-                        <div>
-                          <span className="text-[0.55rem] font-semibold text-gray-300 uppercase tracking-widest block mb-1">
-                            ANNUAL SAVINGS
-                          </span>
-                          <span className="text-sm lg:text-base font-bold text-white">
-                            {project.savings}
-                          </span>
-                        </div>
-                        <div>
-                          <span className="text-[0.55rem] font-semibold text-gray-300 uppercase tracking-widest block mb-1">
-                            ROI PERIOD
-                          </span>
-                          <span className="text-sm lg:text-base font-bold text-white">
-                            {project.payback}
-                          </span>
-                        </div>
+                    <div className="absolute inset-0 p-8 lg:p-12 flex flex-col justify-end">
+                      <div className="mb-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700">
+                         <span className="s-mono !text-primary !opacity-100 mb-2 block !text-[10px] font-black tracking-widest uppercase">
+                           {project.type}
+                         </span>
+                          <h3 className="s-h3 !text-white !text-2xl lg:!text-3xl uppercase font-black tracking-tighter">
+                            {project.title}
+                          </h3>
+                       </div>
+ 
+                       {/* Stats row — always visible or reveal on hover? User wants perfection, so better hover contrast */}
+                       <div className="grid grid-cols-2 gap-8 pt-6 border-t border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-700 delay-100">
+                          <div>
+                            <span className="s-body !text-zinc-300 block !text-[9.5px] font-black tracking-[0.2em] mb-2 uppercase">
+                              SAVINGS
+                            </span>
+                            <span className="text-xl font-black text-white tracking-tighter">
+                              {project.savings}
+                            </span>
+                         </div>
+                         <div>
+                            <span className="s-body !text-zinc-300 block !text-[9.5px] font-black tracking-[0.2em] mb-2 uppercase">
+                              ROI PERIOD
+                            </span>
+                           <span className="text-xl font-black text-white tracking-tighter">
+                             {project.payback}
+                           </span>
+                         </div>
                       </div>
                     </div>
                   </div>
@@ -190,25 +199,22 @@ export default function GlobalPortfolio() {
           </Carousel>
         </FadeUp>
 
-        {/* ── Pagination Dots + Drag Label ──────────── */}
-        <FadeUp delay={0.4} className="flex flex-col items-center mt-6 gap-3">
-          <div className="flex justify-center gap-2">
+        {/* ── Pagination Dots ──────────── */}
+        <FadeUp delay={0.4} className="flex justify-center">
+          <div className="flex justify-center gap-3">
             {portfolioItems.map((_, index) => (
               <button
                 key={index}
-                className={`h-1.5 rounded-full transition-all duration-500 ${
+                 className={`h-1.5 rounded-none transition-all duration-700 border border-black/5 ${
                   currentSlide === index
-                    ? 'w-6 bg-primary'
-                    : 'w-1.5 bg-black/10 hover:bg-black/20'
+                    ? 'w-16 bg-primary shadow-[0_0_15px_rgba(234,126,38,0.3)]'
+                    : 'w-6 bg-black/10 hover:bg-black/20'
                 }`}
                 onClick={() => carouselApi?.scrollTo(index)}
                 aria-label={`Go to project ${index + 1}`}
               />
             ))}
           </div>
-          <span className="text-gray-400 text-[10px] tracking-[0.2em] uppercase font-semibold">
-            Drag to explore
-          </span>
         </FadeUp>
 
       </div>

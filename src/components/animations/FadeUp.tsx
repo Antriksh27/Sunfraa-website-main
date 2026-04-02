@@ -25,7 +25,24 @@ export default function FadeUp({
   const elementRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    if (!elementRef.current) return;
+    if (!elementRef.current || typeof window === 'undefined') return;
+
+    // Safety: ensure ScrollTrigger is available
+    if (!gsap.plugins || !('scrollTrigger' in gsap.plugins)) {
+      gsap.fromTo(
+        elementRef.current,
+        { opacity: 0, y: 20, visibility: 'hidden' },
+        { 
+          opacity: 1, 
+          y: 0, 
+          visibility: 'visible', 
+          duration, 
+          delay, 
+          ease: 'expo.out' 
+        }
+      );
+      return;
+    }
 
     gsap.fromTo(
       elementRef.current,

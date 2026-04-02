@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import AuthorityHeadline from './authority/AuthorityHeadline';
 import CertificationCard from './authority/CertificationCard';
+import { cn } from '@/lib/utils/cn';
 
 const certifications = [
   { id: '01', name: 'MNRE Approved', subtitle: 'Government subsidies eligible' },
@@ -11,108 +12,58 @@ const certifications = [
 ] as const;
 
 export default function AuthoritySection() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+
   return (
     <section
+      ref={sectionRef}
       id="trust"
       aria-label="Industry certifications and compliance"
-      className="relative overflow-hidden py-28 md:py-36 isolate"
-      style={{ backgroundColor: '#F7F5F0' }}
+      className="s-section s-section-full s-theme-white !p-0 flex items-center justify-center h-screen overflow-hidden"
     >
-      {/* SVG Noise Filter */}
-      <svg className="sr-only h-0 w-0" aria-hidden="true">
-        <filter id="noise">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.65"
-            numOctaves="3"
-            stitchTiles="stitch"
-          />
-          <feColorMatrix type="saturate" values="0" />
-        </filter>
-      </svg>
-
-      {/* Noise Texture Overlay */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.03] mix-blend-multiply"
-        style={{ filter: 'url(#noise)' }}
-        aria-hidden="true"
-      />
-
-      {/* Very faint radial primary warmth glow at center */}
-      <div
-        className="pointer-events-none absolute inset-0 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] rounded-full opacity-[0.05]"
-        style={{
-          background:
-            'radial-gradient(ellipse at center, #EA7E26 0%, transparent 70%)',
-          filter: 'blur(80px)',
-        }}
-        aria-hidden="true"
-      />
-
-      <div className="s-container max-w-[1400px] relative z-10">
-        {/* Headline block */}
-        <AuthorityHeadline />
-
-        {/* Certification cards container */}
-        <div
-          className="
-            mt-16 md:mt-20
-            grid gap-4 md:gap-6
-            grid-cols-1
-            md:grid-cols-3
-            lg:flex lg:flex-row lg:justify-between
-            authority-cards-wrapper
-          "
-          style={{ perspective: '1200px' }}
-        >
-          {certifications.map((cert, i) => (
-            <CertificationCard
-              key={cert.id}
-              id={cert.id}
-              name={cert.name}
-              subtitle={cert.subtitle}
-              index={i}
-              className={
-                i >= 3
-                  ? 'md:col-span-1 md:flex md:justify-center lg:flex-grow lg:max-w-[260px]'
-                  : 'md:col-span-1 lg:flex-grow lg:max-w-[260px]'
-              }
-            />
-          ))}
+      {/* Premium Texture Overlay */}
+      <div className="absolute inset-0 opacity-[0.25] pointer-events-none mix-blend-multiply z-10 bg-[url('https://www.transparenttextures.com/patterns/p6.png')]" />
+ 
+      {/* Background Thermal Hint */}
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-primary/[0.03] rounded-full blur-[120px] pointer-events-none z-0" />
+ 
+      <div className="s-container relative z-20 w-full h-full flex flex-col justify-center py-2 lg:py-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center flex-1">
+          
+          {/* Left Column: Headline (4/12) */}
+          <div className="lg:col-span-4 self-center">
+            <AuthorityHeadline />
+          </div>
+ 
+          {/* Right Column: 3 over 2 Alignment (8/12) */}
+          <div className="lg:col-span-8 flex flex-col gap-y-4 lg:gap-y-6 lg:ml-auto">
+            {/* Top Row: 3 Boxes */}
+            <div className="flex flex-wrap justify-center lg:justify-end gap-2 lg:gap-6">
+              {certifications.slice(0, 3).map((cert, i) => (
+                <CertificationCard
+                  key={cert.id}
+                  name={cert.name}
+                  subtitle={cert.subtitle}
+                  index={i}
+                  className="relative"
+                />
+              ))}
+            </div>
+            
+            {/* Bottom Row: 2 Boxes - Aligned Properly */}
+            <div className="flex flex-wrap justify-center lg:justify-end gap-2 lg:gap-6 lg:mr-24 translate-x-3 lg:translate-x-0">
+               {certifications.slice(3, 5).map((cert, i) => (
+                <CertificationCard
+                  key={cert.id}
+                  name={cert.name}
+                  subtitle={cert.subtitle}
+                  index={i + 3}
+                  className="relative"
+                />
+              ))}
+            </div>
+          </div>
         </div>
-        
-        {/* Specific layout fix for tablet (3 + 2) */}
-        <style dangerouslySetInnerHTML={{ __html: `
-          @media (min-width: 768px) and (max-width: 1023px) {
-            .authority-cards-wrapper > :nth-child(4) {
-              grid-column: 1 / span 3;
-              justify-self: center;
-              width: fit-content;
-              display: flex;
-              gap: 24px;
-            }
-            /* Actually, a cleaner grid approach is better for 3+2 */
-            .authority-cards-wrapper {
-              display: grid;
-              grid-template-columns: repeat(3, 1fr);
-            }
-            .authority-cards-wrapper > :nth-child(4) {
-              grid-column: 1 / span 1.5;
-              grid-column-start: 1;
-              justify-self: end;
-              width: 100%;
-              max-width: 280px;
-            }
-             .authority-cards-wrapper > :nth-child(5) {
-              grid-column: span 1.5;
-              grid-column-start: 2;
-              justify-self: start;
-              width: 100%;
-              max-width: 280px;
-              margin-left: 50%;
-            }
-          }
-        `}} />
       </div>
     </section>
   );

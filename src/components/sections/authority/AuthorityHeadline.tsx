@@ -61,14 +61,12 @@ export default function AuthorityHeadline() {
         { 
           opacity: 0, 
           y: 24, 
-          skewY: 1.5,
-          webkitTextStroke: '1.5px transparent'
+          skewY: 1.5
         },
         { 
           opacity: 1, 
           y: 0, 
           skewY: 0, 
-          webkitTextStroke: '1.5px #C9A84C',
           duration: 0.7, 
           ease: 'power3.out' 
         },
@@ -80,51 +78,38 @@ export default function AuthorityHeadline() {
   );
 
   return (
-    <div ref={containerRef} className="text-center relative z-10">
-      {/* Eyebrow [————] Text [————] */}
-      <div className="flex items-center justify-center gap-3 mb-6">
-        <span
-          ref={lineLeftRef}
-          className="block h-px w-12"
-          style={{ backgroundColor: '#C9A84C' }}
-          aria-hidden="true"
-        />
+    <div ref={containerRef} className="max-w-xl relative z-10">
+      <div className="flex items-center gap-4 mb-6">
         <div ref={eyebrowRef} className="opacity-0">
           <p
             role="doc-subtitle"
-            className="font-[var(--font-body)] text-[11px] font-semibold tracking-[0.16em] uppercase"
-            style={{ color: '#C9A84C' }}
+            className="s-label !text-primary uppercase tracking-[0.2em]"
           >
-            Certified · Compliant · Trusted
+            Authority & Compliance
           </p>
         </div>
-        <span
-          ref={lineRightRef}
-          className="block h-px w-12"
-          style={{ backgroundColor: '#C9A84C' }}
-          aria-hidden="true"
-        />
       </div>
 
-      {/* Extreme weight contrast headline */}
-      <h2 className="flex flex-col items-center">
+      {/* High-Contrast Dynamic Headline */}
+      <h2 className="flex flex-col gap-2">
         <span
           ref={headLine1Ref}
-          className="block font-[var(--font-headline)] font-bold text-[clamp(2rem,5vw,3.5rem)] tracking-[-0.02em] leading-[1.05] opacity-0"
-          style={{ color: '#1A1A18' }}
+          className="block s-h1 !text-zinc-900 !text-[clamp(2rem,5vw,3.5rem)] !leading-[0.9] !tracking-tighter uppercase opacity-0"
         >
-          Trusted by the industry.
+          Trusted by the <br />
+          <span className="text-primary italic lowercase font-body font-light tracking-tight">Global Industry.</span>
         </span>
         <span
           ref={headLine2Ref}
-          className="block font-[var(--font-headline)] font-bold text-[clamp(2rem,5vw,3.5rem)] tracking-[-0.02em] leading-[1.05] opacity-0"
-          style={{ color: 'transparent', WebkitTextStroke: '1.5px transparent' }}
+          className="block s-body !text-zinc-500 opacity-100 !text-[clamp(1rem,1.2vw,1.1rem)]"
         >
-          Certified for performance.
+          Built for 25 Years of Uninterrupted Performance.
         </span>
       </h2>
-
-
+      
+      <p className="mt-6 s-body !text-zinc-400 max-w-sm leading-relaxed !text-[0.9rem]">
+        We don't just build solar plants; we engineer sovereign energy assets that comply with the highest global standards.
+      </p>
     </div>
   );
 }

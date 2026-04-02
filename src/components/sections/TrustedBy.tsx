@@ -1,91 +1,84 @@
 'use client';
 
-import React from 'react';
-import FadeUp from '@/components/animations/FadeUp';
-import { LogoCloud } from '@/components/ui/logo-cloud-3';
-
-const logos = [
-  {
-    src: "https://svgl.app/library/nvidia-wordmark-light.svg",
-    alt: "Nvidia",
-  },
-  {
-    src: "https://svgl.app/library/supabase_wordmark_light.svg",
-    alt: "Supabase",
-  },
-  {
-    src: "https://svgl.app/library/openai_wordmark_light.svg",
-    alt: "OpenAI",
-  },
-  {
-    src: "https://svgl.app/library/turso-wordmark-light.svg",
-    alt: "Turso",
-  },
-  {
-    src: "https://svgl.app/library/vercel_wordmark.svg",
-    alt: "Vercel",
-  },
-  {
-    src: "https://svgl.app/library/github_wordmark_light.svg",
-    alt: "GitHub",
-  },
-  {
-    src: "https://svgl.app/library/claude-ai-wordmark-icon_light.svg",
-    alt: "Claude AI",
-  },
-  {
-    src: "https://svgl.app/library/clerk-wordmark-light.svg",
-    alt: "Clerk",
-  },
-];
+import React, { useRef, useEffect, useState } from 'react';
+import { gsap } from '@/lib/gsap/gsap-config';
+import { useGSAP } from '@/lib/gsap/useGSAP';
+import { Activity, Globe, Database, Award } from 'lucide-react';
+import { LogoCloud } from '@/components/ui/logo-cloud-2';
 
 export default function TrustedBy() {
+  const [mounted, setMounted] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useGSAP(() => {
+    if (!mounted || !containerRef.current) return;
+
+    gsap.fromTo('.alliance-header', 
+      { opacity: 0, y: -20 }, 
+      { opacity: 1, y: 0, duration: 1, ease: 'power4.out', scrollTrigger: { trigger: containerRef.current, start: 'top 80%' } }
+    );
+
+    gsap.fromTo('.alliance-cloud-container', 
+      { opacity: 0, scale: 0.95 }, 
+      { opacity: 1, scale: 1, duration: 1.2, ease: 'power2.out', scrollTrigger: { trigger: containerRef.current, start: 'top 70%' } }
+    );
+
+  }, { scope: containerRef, dependencies: [mounted] });
+
   return (
-    <section
-      id="trusted-by"
-      className="relative flex flex-col items-center justify-center py-16 lg:py-24 bg-dark-container overflow-hidden"
+    <section 
+      ref={containerRef}
+      id="trusted-by" 
+      className="s-section s-section-full s-theme-black !p-0 h-screen overflow-hidden"
     >
-      {/* Subtle radial glow behind heading */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 w-[80vmin] h-[40vmin] rounded-full opacity-[0.07]"
-        style={{
-          background:
-            'radial-gradient(ellipse at center, var(--color-primary), transparent 70%)',
-          filter: 'blur(60px)',
-        }}
-      />
+      {/* Premium Texture Overlay */}
+      <div className="absolute inset-0 opacity-[0.25] pointer-events-none mix-blend-overlay z-10 bg-[url('https://www.transparenttextures.com/patterns/p6.png')]" />
 
-      <div className="s-container max-w-[1400px] relative z-10">
-        <FadeUp delay={0.1}>
-          <div className="flex flex-col items-center gap-4 mb-8">
-            <div className="inline-flex items-center text-primary font-bold text-[10px] tracking-[0.3em] uppercase">
-              <span className="w-8 h-px bg-primary mr-4"></span>
-              Industry Leaders
-              <span className="w-8 h-px bg-primary ml-4"></span>
-            </div>
+      {/* Atmospheric Glow */}
+      <div className="s-glow-primary top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.05]" />
 
-            <h2 className="text-[clamp(1.5rem,3.5vw,2.5rem)] font-bold text-white text-center tracking-tight-editorial leading-tight">
-              Trusted by Experts.{' '}
-              <br />
-              <span className="text-gray-500">Used by the Leaders.</span>
+      <div className="s-container max-w-[1400px] w-full relative z-20 px-6 lg:px-20 h-full flex flex-col items-center justify-center">
+        
+        {/* Section Header */}
+        <div className="alliance-header mb-6 lg:mb-10 space-y-4 text-center">
+           <div className="flex items-center justify-center gap-4 s-label uppercase !text-zinc-400 !text-[11px] font-bold">
+              <Globe size={14} className="text-primary" />
+              Strategic Network
+           </div>
+            <h2 className="s-h1 !text-white !text-[clamp(2rem,5vw,3.5rem)] !leading-[0.8] !tracking-[calc(-0.06em)] uppercase">
+              The Sunfraa <br />
+              <span className="text-primary font-light italic lowercase font-body tracking-tight">Alliance Partners.</span>
             </h2>
+        </div>
 
-            <div className="mx-auto h-px w-full max-w-sm bg-white/10 [mask-image:linear-gradient(to_right,transparent,white,transparent)]" />
-          </div>
-        </FadeUp>
+        {/* Industrial Alliance Grid */}
+        <div className="alliance-cloud-container relative mx-auto w-full max-w-5xl border-t border-b border-white/5 py-4 lg:py-10 bg-white/[0.01]">
+           <LogoCloud className="rounded-none border-none bg-transparent" />
+        </div>
 
-        <FadeUp delay={0.25}>
-          <LogoCloud
-            logos={logos}
-            className="[&_img]:brightness-0 [&_img]:invert [&_img]:opacity-50 [&_img]:hover:opacity-80 [&_img]:transition-opacity"
-          />
-        </FadeUp>
+         {/* Bottom Metadata - Higher Contrast */}
+        <div className="alliance-header mt-8 lg:mt-12 flex flex-wrap justify-center gap-8 lg:gap-12">
+           <div className="flex items-center gap-4 group opacity-70 hover:opacity-100 transition-opacity">
+              <Activity size={14} className="text-primary" />
+              <div className="s-mono !text-zinc-300 uppercase !text-[9.5px] font-bold tracking-wider">National Deployment</div>
+           </div>
+           <div className="flex items-center gap-4 group opacity-70 hover:opacity-100 transition-opacity">
+              <Activity size={14} className="text-primary" />
+              <div className="s-mono !text-zinc-300 uppercase !text-[10px] font-bold tracking-wider">MNRE ALMM Approved</div>
+           </div>
+           <div className="flex items-center gap-4 group opacity-70 hover:opacity-100 transition-opacity">
+              <Activity size={14} className="text-primary" />
+              <div className="s-mono !text-zinc-300 uppercase !text-[9.5px] font-bold tracking-wider">ISO Quality Sync</div>
+           </div>
+        </div>
 
-        <FadeUp delay={0.35}>
-          <div className="mt-8 h-px w-full bg-white/10 [mask-image:linear-gradient(to_right,transparent,white,transparent)]" />
-        </FadeUp>
       </div>
+
+      
     </section>
   );
 }

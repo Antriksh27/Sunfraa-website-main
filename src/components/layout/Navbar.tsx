@@ -6,10 +6,10 @@ import { Menu, X } from 'lucide-react';
 import gsap from 'gsap';
 
 const NAV_LINKS = [
-  { label: 'Philosophy',       href: '/#philosophy' },
-  { label: 'Solutions',        href: '/#solutions' },
-  { label: 'Impact',           href: '/#roi-intelligence' },
-  { label: 'Asset Repository',  href: '/#portfolio' },
+  { label: 'About',          href: '/#about' },
+  { label: 'Services',       href: '/#services' },
+  { label: 'ROI Calculator', href: '/#roi-intelligence' },
+  { label: 'Projects',       href: '/#portfolio' },
 ];
 
 export default function Navbar() {
@@ -66,7 +66,7 @@ export default function Navbar() {
               <Link href="/contact" className="group relative px-8 py-4 bg-primary overflow-hidden">
                 <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
                 <span className="relative z-10 text-background text-[0.625rem] font-[800] uppercase tracking-[0.3em] italic">
-                  INITIATE_PROTOCOL
+                  Get a Quote
                 </span>
               </Link>
             </div>
@@ -75,6 +75,7 @@ export default function Navbar() {
             <button
               className="lg:hidden text-on-background hover:text-primary transition-colors"
               onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle Menu"
             >
               <Menu size={24} />
             </button>
@@ -90,7 +91,7 @@ export default function Navbar() {
       >
         <div className="flex justify-between items-center mb-12">
           <span className="text-[1.25rem] font-[700] tracking-[0.05em] font-headline">SUNFRAA GLOBAL</span>
-          <button onClick={() => setMobileOpen(false)}><X size={24} /></button>
+          <button onClick={() => setMobileOpen(false)} aria-label="Close Menu"><X size={24} /></button>
         </div>
         <div className="flex flex-col gap-8">
           {NAV_LINKS.map(link => (
@@ -108,7 +109,7 @@ export default function Navbar() {
             onClick={() => setMobileOpen(false)}
             className="btn-primary w-full justify-center mt-8"
           >
-            Initiate Protocol
+            Get a Quote
           </Link>
         </div>
       </div>

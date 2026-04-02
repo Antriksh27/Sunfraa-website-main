@@ -5,7 +5,7 @@ import FadeUp from '@/components/animations/FadeUp';
 
 export default function GroundMountSolar() {
   return (
-    <section id="ground-mount" className="min-h-[100dvh] lg:h-screen flex flex-col justify-center py-8 lg:py-0 bg-white-container relative overflow-hidden">
+    <section id="ground-mount" className="s-section s-section-full bg-white !p-0">
       <div className="s-container max-w-[1400px]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
           
@@ -23,10 +23,10 @@ export default function GroundMountSolar() {
                 {/* Tech Badges Overlay */}
                 <div className="absolute top-8 left-8 flex flex-col gap-3">
                    <div className="bg-white/90 backdrop-blur-sm self-start px-4 py-2 border border-black/5 rounded-full shadow-lg">
-                      <span className="text-[10px] font-bold text-black uppercase tracking-widest italic">Foundation Alpha</span>
+                      <span className="s-mono !text-black !text-[0.65rem]">Foundation Alpha</span>
                    </div>
                    <div className="bg-white/90 backdrop-blur-sm self-start px-4 py-2 border border-black/5 rounded-full shadow-lg">
-                      <span className="text-[10px] font-bold text-black uppercase tracking-widest italic">Max Tilt Optima</span>
+                      <span className="s-mono !text-black !text-[0.65rem]">Max Tilt Optima</span>
                    </div>
                 </div>
               </div>
@@ -36,35 +36,35 @@ export default function GroundMountSolar() {
           {/* Right Side: Content Area */}
           <div className="lg:col-span-6 order-2">
             <FadeUp delay={0.3}>
-              <div className="inline-flex items-center text-primary font-bold text-[10px] tracking-[0.2em] uppercase mb-4 lg:mb-6">
+              <div className="flex items-center s-label mb-4 lg:mb-6">
                 <span className="w-8 h-px bg-primary mr-4"></span>
                 Solution Beta
               </div>
               
-              <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-bold text-black leading-[1.02] tracking-tighter mb-4 lg:mb-6">
+              <h2 className="s-h2 !text-black mb-4 lg:mb-6">
                 Ground Mount <br />
                 <span className="text-gray-400 italic">Utility-Scale Mastery.</span>
               </h2>
 
               <div className="space-y-6 lg:space-y-8 max-w-xl text-black">
-                <p className="text-[clamp(1rem,1.2vw,1.25rem)] text-on-background-muted font-light leading-relaxed">
+                <p className="s-body !text-black !font-light">
                   Transforming underutilized land into high-yield energy assets. Our ground-mount engineering prioritizes foundation longevity and seasonal tilt optimization to ensure maximum kWh per square meter.
                 </p>
 
                 <div className="grid grid-cols-2 gap-6 pb-4">
                   <div className="space-y-2 border-l-2 border-primary/40 pl-4 py-1 bg-primary/5 rounded-r-xl">
-                    <span className="block text-[0.65rem] font-bold text-primary uppercase tracking-widest italic">Foundation</span>
-                    <span className="text-xl lg:text-2xl font-bold text-black tracking-tight">Bore Pile / Ramming</span>
+                    <span className="s-mono !text-primary block">Foundation</span>
+                    <span className="s-h3 !text-xl lg:!text-2xl !text-black tracking-tight">Bore Pile / Ramming</span>
                   </div>
                   <div className="space-y-2 border-l-2 border-primary/40 pl-4 py-1 bg-primary/5 rounded-r-xl">
-                    <span className="block text-[0.65rem] font-bold text-primary uppercase tracking-widest italic">Yield</span>
-                    <span className="text-xl lg:text-2xl font-bold text-black tracking-tight">+15% Efficiency</span>
+                    <span className="s-mono !text-primary block">Yield</span>
+                    <span className="s-h3 !text-xl lg:!text-2xl !text-black tracking-tight">+15% Efficiency</span>
                   </div>
                 </div>
 
                 <div className="flex flex-wrap gap-4">
                    {["Gated Solar Farms", "Industrial Open Access", "Utility MW"].map((tag, i) => (
-                     <span key={i} className="text-[0.65rem] font-bold text-black/60 border border-black/10 px-5 py-2.5 rounded-full uppercase tracking-tighter bg-black/5 hover:bg-black/10 transition-colors">
+                     <span key={i} className="s-mono !text-black/60 border border-black/10 px-5 py-2.5 rounded-full tracking-tighter bg-black/5 hover:bg-black/10 transition-colors">
                        {tag}
                      </span>
                    ))}

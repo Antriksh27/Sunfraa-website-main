@@ -1,77 +1,216 @@
 'use client';
 
-import React from 'react';
-import FadeUp from '@/components/animations/FadeUp';
+import React, { useRef } from 'react';
+import { gsap } from '@/lib/gsap/gsap-config';
+import { useGSAP } from '@/lib/gsap/useGSAP';
+import { Layers, Wind, Droplets, Shield, ArrowUpRight } from 'lucide-react';
+
+const rooftopSpecs = [
+  {
+    icon: Layers,
+    title: 'Precision Mounting',
+    value: 'Load-Neutral',
+    desc: 'Zero slab stress distribution.',
+  },
+  {
+    icon: Wind,
+    title: 'Velocity Limit',
+    value: '180 KM/H',
+    desc: 'Uplift-resistant structural logic.',
+  },
+  {
+    icon: Droplets,
+    title: 'Water Integrity',
+    value: 'Drainage Flow',
+    desc: 'Zero-stagnation rib alignment.',
+  },
+  {
+    icon: Shield,
+    title: 'Fixture Alloy',
+    value: 'Pure Aluminum',
+    desc: 'Corrosion-free industrial seal.',
+  },
+];
 
 export default function RooftopSolar() {
+  const [mounted, setMounted] = React.useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const visualRef = useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useGSAP(() => {
+    if (!mounted || !containerRef.current) return;
+
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 1024px)", () => {
+      if (!containerRef.current) return;
+      // 1. Background Watermark Parallax
+      gsap.fromTo('.rooftop-bg-text', 
+        { x: -50, opacity: 0 }, 
+        { 
+          x: 50, 
+          opacity: 0.05, 
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1,
+          }
+        }
+      );
+
+      // 2. Visual Reveal with Scan-line
+      if (visualRef.current) {
+        gsap.fromTo(visualRef.current, 
+          { clipPath: 'inset(100% 0% 0% 0%)', scale: 1.1 }, 
+          { 
+            clipPath: 'inset(0% 0% 0% 0%)', 
+            scale: 1,
+            duration: 1.5,
+            ease: 'power4.inOut',
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: 'top 60%',
+            }
+          }
+        );
+      }
+
+      // 3. HUD Spec Stagger
+      gsap.fromTo('.rooftop-spec-hud', 
+        { opacity: 0, y: 20 }, 
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.8, 
+          stagger: 0.05, 
+          ease: 'power4.out',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top 70%',
+          }
+        }
+      );
+    });
+
+  }, { scope: containerRef, dependencies: [mounted] });
+
   return (
-    <section id="rooftop" className="min-h-[100dvh] lg:h-screen flex flex-col justify-center py-8 lg:py-0 bg-dark-container relative overflow-hidden">
-      <div className="s-container max-w-[1400px]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+    <section 
+      ref={containerRef}
+      id="rooftop" 
+      className="s-section s-section-full s-theme-grey !p-0 flex items-center justify-center h-screen overflow-hidden"
+    >
+      {/* Premium Texture Overlay */}
+      <div className="absolute inset-0 opacity-[0.25] pointer-events-none mix-blend-multiply z-10 bg-[url('https://www.transparenttextures.com/patterns/p6.png')]" />
+
+      {/* Atmospheric Glow */}
+      <div className="s-glow-primary top-0 right-0 translate-x-1/4 -translate-y-1/4 opacity-[0.05]" />
+      
+      <div className="s-container relative z-20 w-full h-full flex flex-col justify-around py-6 lg:py-10">
+        {/* Zenith Header Block */}
+        <div className="text-center lg:text-left">
+           <div className="flex items-center justify-center lg:justify-start gap-4 s-label mb-2 !text-zinc-600 font-black">
+             Industrial Benchmarks
+             <span className="w-8 h-px bg-primary/40" />
+           </div>
+           <h2 className="s-h1 !text-zinc-900 !text-[clamp(2rem,5vw,3.5rem)] !leading-[0.9] !tracking-tighter uppercase font-black">
+             Rooftop <br/>
+             <span className="text-primary italic lowercase font-body font-light tracking-tight">Infrastructure.</span>
+           </h2>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
           
-          {/* Left Side: Content Area */}
-          <div className="lg:col-span-6 order-2 lg:order-1">
-            <FadeUp delay={0.1}>
-              <div className="inline-flex items-center text-primary font-bold text-[10px] tracking-[0.2em] uppercase mb-4 lg:mb-6">
-                <span className="w-8 h-px bg-primary mr-4"></span>
-                Solution Alpha
-              </div>
-              
-              <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-bold text-white leading-[1.02] tracking-tighter mb-4 lg:mb-6">
-                Rooftop Solar <br />
-                <span className="text-gray-500 italic">Engineering for Integrity.</span>
-              </h2>
-
-              <div className="space-y-6 lg:space-y-8 max-w-xl">
-                <p className="text-[clamp(1rem,1.2vw,1.25rem)] text-gray-400 font-light leading-relaxed">
-                  We don't just "install" panels; we engineer a new layer for your architecture. From RCC slabs to industrial metal roofs, our systems are built to endure the most aggressive Indian weather patterns.
-                </p>
-
-                <div className="grid grid-cols-2 gap-6 pb-4">
-                  <div className="space-y-2 border-l-2 border-primary/20 pl-4 py-1">
-                    <span className="block text-[0.65rem] font-bold text-primary uppercase tracking-widest">Wind Velocity</span>
-                    <span className="text-xl lg:text-2xl font-bold text-white tracking-tight">180 KM/H</span>
+          {/* Left: Spec Column A */}
+          <div className="lg:col-span-3 space-y-8 order-2 lg:order-1">
+            {rooftopSpecs.slice(0, 2).map((spec, i) => (
+              <div key={i} className="rooftop-spec-hud group relative">
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-0.5 bg-black/20 group-hover:bg-primary/50 transition-all" />
                   </div>
-                  <div className="space-y-2 border-l-2 border-primary/20 pl-4 py-1">
-                    <span className="block text-[0.65rem] font-bold text-primary uppercase tracking-widest">Mounting</span>
-                    <span className="text-xl lg:text-2xl font-bold text-white tracking-tight">Zero-Leaking</span>
+                  
+                  <div className="space-y-1">
+                    <div className="s-label !text-zinc-600 !text-[10px] group-hover:text-primary transition-colors font-black uppercase tracking-widest">
+                      {spec.title}
+                    </div>
+                    <h3 className="s-h3 !text-2xl lg:!text-3xl !text-zinc-900 group-hover:text-primary transition-colors uppercase font-black tracking-tight">
+                      {spec.value}
+                    </h3>
+                    <p className="s-body !text-zinc-700 !text-[11px] font-black leading-relaxed max-w-[180px]">
+                      {spec.desc}
+                    </p>
                   </div>
                 </div>
-
-                <div className="flex flex-wrap gap-4">
-                   {["Industrial MW", "Residential Luxe", "Institutional"].map((tag, i) => (
-                     <span key={i} className="text-[0.6rem] font-bold text-white/40 border border-white/10 px-4 py-2 rounded-full uppercase tracking-widest bg-white/5">
-                       {tag}
-                     </span>
-                   ))}
-                </div>
               </div>
-            </FadeUp>
+            ))}
           </div>
 
-          {/* Right Side: Cinematic Image */}
-          <div className="lg:col-span-6 order-1 lg:order-2 h-[40vh] lg:h-[70vh] relative group">
-            <FadeUp delay={0.3} className="h-full w-full">
-              <div className="relative h-full w-full rounded-massive overflow-hidden border border-white/10 shadow-2xl">
-                <img 
-                  src="https://images.unsplash.com/photo-1624397645584-635e98943f6c?q=80&w=2000&auto=format&fit=crop" 
-                  className="absolute inset-0 w-full h-full object-cover grayscale brightness-75 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-1000" 
-                  alt="Industrial Rooftop Solar Installation" 
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
+          {/* Center: The Structural Visual */}
+          <div className="lg:col-span-6 flex flex-col items-center justify-center order-1 lg:order-2">
+              <div ref={visualRef} className="relative group/visual">
+                <div className="relative w-full max-w-[320px] aspect-[4/5] overflow-hidden rounded-none shadow-[0_40px_120px_rgba(0,0,0,0.18)] bg-zinc-200 border border-black/10 transition-all duration-700 group-hover/visual:border-primary/50 p-2">
+                   <div className="w-full h-full overflow-hidden bg-zinc-300">
+                     <img 
+                      src="https://images.unsplash.com/photo-1559302504-64aae6ca6b6d?q=80&w=2000&auto=format&fit=crop"
+                      alt="Sunfraa High-End Rooftop Integration"
+                      className="w-full h-full object-cover grayscale brightness-90 group-hover/visual:grayscale-0 group-hover/visual:brightness-100 group-hover/visual:scale-105 transition-all duration-1000"
+                     />
+                   </div>
+                   
+                   {/* HUD Overlay Scan Lines */}
+                   <div className="absolute inset-x-0 top-0 h-px bg-primary/40 shadow-[0_0_20px_rgba(234,126,38,0.5)] animate-scan-y pointer-events-none z-20" />
+                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                </div>
                 
-                {/* Technical HUD Overlay Overlay */}
-                <div className="absolute bottom-8 left-8 right-8 flex justify-between items-end opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                   <div className="bg-black/80 backdrop-blur-md p-4 rounded-xl border border-white/10">
-                      <p className="text-[10px] text-primary font-bold uppercase tracking-widest mb-1 italic">Structural Scan</p>
-                      <p className="text-xs text-white/60 font-light">Load-optimized structural rib integration.</p>
-                   </div>
-                   <div className="w-12 h-12 rounded-full border border-primary/40 flex items-center justify-center bg-primary/10">
-                      <div className="w-2 h-2 bg-primary rounded-full animate-ping"></div>
-                   </div>
+                {/* Visual Label */}
+                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center text-center whitespace-nowrap">
+                   <div className="s-label !text-primary !opacity-100 mb-2 uppercase tracking-[0.4em] text-[10px] font-black">Structural Engineering</div>
+                   <div className="w-px h-12 bg-primary/30" />
+                </div>
+             </div>
+          </div>
+
+          {/* Right: Spec Column B */}
+          <div className="lg:col-span-3 space-y-8 order-3 text-right flex flex-col items-end">
+            {rooftopSpecs.slice(2, 4).map((spec, i) => (
+              <div key={i} className="rooftop-spec-hud group relative flex flex-col items-end">
+                <div className="space-y-3 text-right">
+                  <div className="flex items-center justify-end gap-2">
+                    <div className="w-8 h-0.5 bg-black/20 group-hover:bg-primary/50 transition-all" />
+                  </div>
+                  
+                  <div className="space-y-1">
+                    <div className="s-label !text-zinc-600 !text-[10px] group-hover:text-primary transition-colors text-right font-black uppercase tracking-widest">
+                      {spec.title}
+                    </div>
+                    <h3 className="s-h3 !text-2xl lg:!text-3xl !text-zinc-900 group-hover:text-primary transition-colors uppercase font-black tracking-tight">
+                      {spec.value}
+                    </h3>
+                    <p className="s-body !text-zinc-700 !text-[11px] font-black leading-relaxed max-w-[180px] text-right">
+                      {spec.desc}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </FadeUp>
+            ))}
+ 
+            {/* CTA Overlay */}
+            <div className="pt-4">
+               <button className="group/cta flex flex-col items-end gap-2 text-right">
+                  <div className="flex items-center gap-4 text-zinc-950">
+                     <span className="s-label !text-zinc-950 group-hover/cta:!text-primary transition-colors uppercase tracking-[0.3em] text-[10.5px] font-black">Structural Report</span>
+                     <div className="w-10 h-10 flex items-center justify-center rounded-none border border-black/15 bg-white shadow-sm group-hover/cta:border-primary group-hover/cta:bg-primary/10 group-hover/cta:text-primary transition-all">
+                        <ArrowUpRight size={16} />
+                     </div>
+                  </div>
+               </button>
+            </div>
           </div>
 
         </div>

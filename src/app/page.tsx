@@ -6,8 +6,8 @@ import Hero from '@/components/sections/Hero';
 import ProblemFraming from '@/components/sections/ProblemFraming';
 import OutcomeShift from '@/components/sections/OutcomeShift';
 import BenefitsGrid from '@/components/sections/BenefitsGrid';
+import SolutionAlpha from '@/components/sections/SolutionAlpha';
 import RooftopSolar from '@/components/sections/RooftopSolar';
-import GroundMountSolar from '@/components/sections/GroundMountSolar';
 import GlobalPortfolio from '@/components/sections/GlobalPortfolio';
 import ProcessJourney from '@/components/sections/ProcessJourney';
 import ServicesBento from '@/components/sections/ServicesBento';
@@ -24,20 +24,20 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <AuthoritySection />
       <ProblemFraming />
       <OutcomeShift />
+      <SolutionAlpha />
+      <AuthoritySection />
       <BenefitsGrid />
       <RooftopSolar />
-      <GroundMountSolar />
       <GlobalPortfolio />
       <ProcessJourney />
       <ServicesBento />
       <ROIPanel />
       <InfrastructureSuite />
+      <SunfraaEdge />
       <Testimonial />
       <TrustedBy />
-      <SunfraaEdge />
       <TechnicalFAQ />
       <FinalCTA />
     </>

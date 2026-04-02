@@ -1,7 +1,5 @@
-import gsap from 'gsap';
-import { ScrollTrigger, Flip } from 'gsap/all';
+import { gsap, ScrollTrigger, Flip } from 'gsap/all';
 
-// Register Plugins
 // Register Plugins & Set Defaults
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, Flip);
